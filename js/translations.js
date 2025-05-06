@@ -45,7 +45,7 @@ const translations = {
         'step1-title': 'Copy the IP',
         'step1-desc': 'Click to copy the server address: <b>mc.gangui.eu</b>',
         'step2-title': 'Add to Minecraft',
-        'step2-desc': 'Open Minecraft, go to Multiplayer, then Add Server and paste the address.',
+        'step2-desc': 'Go to Multiplayer, then Add Server and paste the address.',
         'step3-title': 'Play!',
         'step3-desc': 'Join GANGUI and start your adventure instantly.',
         
@@ -120,7 +120,7 @@ const translations = {
         'step1-title': 'Copier l\'IP',
         'step1-desc': 'Cliquez pour copier l\'adresse du serveur : <b>mc.gangui.eu</b>',
         'step2-title': 'Ajouter à Minecraft',
-        'step2-desc': 'Ouvrez Minecraft, allez dans Multijoueur, puis Ajouter un serveur et collez l\'adresse.',
+        'step2-desc': 'Allez dans Multijoueur, puis Ajouter un serveur et collez l\'adresse.',
         'step3-title': 'Jouer !',
         'step3-desc': 'Rejoignez GANGUI et commencez votre aventure instantanément.',
         
