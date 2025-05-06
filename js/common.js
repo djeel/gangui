@@ -1,4 +1,4 @@
-// Vérification du localStorage
+// Check localStorage
 function checkLocalStorage() {
     try {
         const testKey = 'test_storage';
@@ -7,62 +7,62 @@ function checkLocalStorage() {
         localStorage.removeItem(testKey);
         return value === 'test';
     } catch (e) {
-        console.error('localStorage non disponible:', e);
+        console.error('localStorage not available:', e);
         return false;
     }
 }
 
-// Gestion du thème
+// Theme management
 function initTheme() {
     const themeToggle = document.querySelector('.theme-toggle');
     const html = document.documentElement;
     
-    // Récupérer le thème sauvegardé ou utiliser dark par défaut
+    // Retrieve the saved theme or use dark by default
     const savedTheme = localStorage.getItem('theme');
     const theme = savedTheme || 'dark';
-    console.log('Thème chargé:', theme);
+    console.log('Loaded theme:', theme);
     html.setAttribute('data-theme', theme);
     
-    // Gérer le toggle du thème
+    // Handle theme toggle
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             const currentTheme = html.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            console.log('Changement de thème:', newTheme);
+            console.log('Theme change:', newTheme);
             html.setAttribute('data-theme', newTheme);
             try {
                 localStorage.setItem('theme', newTheme);
-                console.log('Thème sauvegardé:', newTheme);
+                console.log('Saved theme:', newTheme);
             } catch (e) {
-                console.error('Erreur lors de la sauvegarde du thème:', e);
+                console.error('Error saving theme:', e);
             }
         });
     }
 }
 
-// Gestion de la langue
+// Language management
 function initLanguage() {
     try {
         const savedLang = localStorage.getItem('language');
         const defaultLang = 'en';
         const lang = savedLang && translations[savedLang] ? savedLang : defaultLang;
         
-        // Vérifier si la langue existe dans les traductions
+        // Check if the language exists in translations
         if (!translations[lang]) {
-            console.error(`La langue ${lang} n'est pas supportée`);
+            console.error(`The language ${lang} is not supported`);
             return;
         }
 
-        // Mettre à jour le texte de l'interface
+        // Update the interface text
         updateLanguage(lang);
 
-        // Mettre à jour le sélecteur de langue
+        // Update the language selector
         const langSelect = document.getElementById('langSelect');
         if (langSelect) {
-            langSelect.textContent = lang === 'en' ? 'English' : 'Français';
+            langSelect.textContent = lang === 'en' ? 'English' : lang === 'fr' ? 'Français' : lang === 'ro' ? 'Romania' : '中文';
         }
 
-        // Ajouter les écouteurs d'événements pour le changement de langue
+        // Add event listeners for language change
         const langOptions = document.querySelectorAll('.lang-option');
         langOptions.forEach(option => {
             option.addEventListener('click', () => {
@@ -70,27 +70,27 @@ function initLanguage() {
                 if (translations[newLang]) {
                     updateLanguage(newLang);
                     if (langSelect) {
-                        langSelect.textContent = newLang === 'en' ? 'English' : 'Français';
+                        langSelect.textContent = newLang === 'en' ? 'English' : newLang === 'fr' ? 'Français' : newLang === 'ro' ? 'Romania' : '中文';
                     }
                 }
             });
         });
 
-        console.log(`Langue initialisée: ${lang}`);
+        console.log(`Language initialized: ${lang}`);
     } catch (error) {
-        console.error('Erreur lors de l\'initialisation de la langue:', error);
+        console.error('Error initializing language:', error);
     }
 }
 
-// Mettre à jour la langue
+// Update the language
 function updateLanguage(lang) {
     try {
         if (!translations[lang]) {
-            console.error(`La langue ${lang} n'est pas supportée`);
+            console.error(`The language ${lang} is not supported`);
             return;
         }
 
-        // Mettre à jour tous les éléments avec des attributs data-translate
+        // Update all elements with data-translate attributes
         const elements = document.querySelectorAll('[data-translate]');
         elements.forEach(element => {
             const key = element.getAttribute('data-translate');
@@ -99,21 +99,21 @@ function updateLanguage(lang) {
             }
         });
 
-        // Sauvegarder la préférence de langue
+        // Save the language preference
         localStorage.setItem('language', lang);
-        console.log(`Langue mise à jour: ${lang}`);
+        console.log(`Language updated: ${lang}`);
     } catch (error) {
-        console.error('Erreur lors de la mise à jour de la langue:', error);
+        console.error('Error updating language:', error);
     }
 }
 
-// Initialiser les fonctionnalités communes
+// Initialize common features
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Initialisation des fonctionnalités communes');
+    console.log('Initializing common features');
     if (checkLocalStorage()) {
         initTheme();
         initLanguage();
     } else {
-        console.error('Impossible d\'utiliser le localStorage');
+        console.error('Unable to use localStorage');
     }
 }); 
