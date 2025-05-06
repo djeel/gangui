@@ -59,7 +59,14 @@ function initLanguage() {
         // Update the language selector
         const langSelect = document.getElementById('langSelect');
         if (langSelect) {
-            langSelect.textContent = lang === 'en' ? 'English' : lang === 'fr' ? 'Français' : lang === 'ro' ? 'Romania' : '中文';
+            langSelect.textContent = 
+                lang === 'en' ? 'English' : 
+                lang === 'fr' ? 'Français' :
+                lang === 'es' ? 'Español' :
+                lang === 'de' ? 'Deutsch' :
+                lang === 'ro' ? 'Română' : 
+                lang === 'ru' ? 'Русский' :
+                lang === 'zh' ? '中文' : 'English';
         }
 
         // Add event listeners for language change
@@ -70,7 +77,14 @@ function initLanguage() {
                 if (translations[newLang]) {
                     updateLanguage(newLang);
                     if (langSelect) {
-                        langSelect.textContent = newLang === 'en' ? 'English' : newLang === 'fr' ? 'Français' : newLang === 'ro' ? 'Romania' : '中文';
+                        langSelect.textContent = 
+                            newLang === 'en' ? 'English' : 
+                            newLang === 'fr' ? 'Français' :
+                            newLang === 'es' ? 'Español' :
+                            newLang === 'de' ? 'Deutsch' :
+                            newLang === 'ro' ? 'Română' : 
+                            newLang === 'ru' ? 'Русский' :
+                            newLang === 'zh' ? '中文' : 'English';
                     }
                 }
             });

@@ -1,3 +1,4 @@
+
 // Gestion des composants communs
 document.addEventListener('DOMContentLoaded', async function() {
     try {
@@ -17,31 +18,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.error('Erreur lors du chargement des composants:', error);
     }
 });
-
-// Fonction pour mettre à jour la langue
-function updateLanguage(lang) {
-    // Mettre à jour le texte du bouton de langue
-    const langCurrent = document.querySelector('.lang-current');
-    if (langCurrent) {
-        langCurrent.textContent = lang === 'en' ? 'English' : 'Français';
-    }
-
-    // Mettre à jour tous les éléments avec l'attribut data-lang
-    document.querySelectorAll('[data-lang]').forEach(element => {
-        const key = element.getAttribute('data-lang');
-        if (translations[lang] && translations[lang][key]) {
-            if (element.getAttribute('data-lang-html')) {
-                element.innerHTML = translations[lang][key];
-            } else {
-                element.textContent = translations[lang][key];
-            }
-        }
-    });
-
-    // Sauvegarder la langue dans le localStorage
-    localStorage.setItem('language', lang);
-}
-
 // Fonction pour initialiser les composants
 function initComponents() {
     // Gestion du thème
