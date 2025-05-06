@@ -93,7 +93,7 @@ For technical questions or assistance:
 ---
 
 <div align="center">
-  <sub>© 2024 GANGUI. All rights reserved.</sub>
+  <sub>© 2025 GANGUI. All rights reserved.</sub>
   <br>
   <sub>GANGUI is not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</sub>
 </div> 
