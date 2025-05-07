@@ -60,18 +60,7 @@ function initComponents() {
             });
         });
     }
-
-    // Gestion du menu mobile
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
     
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-    }
-
     // Gestion du bouton "Back to Top"
     const backToTop = document.querySelector('.back-to-top');
     if (backToTop) {

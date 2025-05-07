@@ -168,21 +168,4 @@
         padding: 0 2rem;
         text-align: center;
     }
-
-    .hamburger {
-        display: flex;
-        z-index: 101;
-    }
-
-    .hamburger.active span:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-
-    .hamburger.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
 }
