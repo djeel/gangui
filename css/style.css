@@ -565,9 +565,8 @@ button { cursor: pointer; font-family: var(--font-primary); border: none; backgr
 }
 
 .join-step {
-    background: var(--bg-lighter);
+    background: var(--bg-light);
     border-radius: 24px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.12);
     padding: 3rem;
     min-width: 320px;
     max-width: 370px;
@@ -575,30 +574,62 @@ button { cursor: pointer; font-family: var(--font-primary); border: none; backgr
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    transform-style: preserve-3d;
+    will-change: transform;
     border: 1.5px solid transparent;
     text-align: left;
 }
 
+.join-step::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(252, 139, 79, 0.08), rgba(200, 200, 200, 0.08));
+    z-index: 1;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .join-step:hover {
     border-color: var(--primary);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.18);
-    transform: translateX(5px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
 }
 
 .step-number {
     width: 60px;
     height: 60px;
-    border-radius: 12px;
-    background: rgba(255,255,255,0.07);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.1);
     color: var(--primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     font-weight: 700;
-    margin-bottom: 1.2rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transform: translateZ(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.step-content {
+    position: relative;
+    z-index: 2;
+    transform: translateZ(20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.join-step:hover .step-content {
+    transform: translateZ(30px);
 }
 
 .step-content h3 {
@@ -607,6 +638,47 @@ button { cursor: pointer; font-family: var(--font-primary); border: none; backgr
     margin-bottom: 0.7rem;
     color: var(--text-primary);
     text-align: left;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.title-container {
+    display: inline-block;
+    position: relative;
+    height: 1.2em;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+.title-wrapper {
+    position: relative;
+    display: inline-block;
+    height: 1.2em;
+    overflow: hidden;
+}
+
+.title-text {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease-in-out;
+    will-change: transform, opacity;
+}
+
+.title-text:first-child {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .step-content p {
@@ -884,6 +956,11 @@ button { cursor: pointer; font-family: var(--font-primary); border: none; backgr
     opacity: 0;
 }
 
+.fade-out {
+    animation: fadeOut 0.6s ease forwards;
+    opacity: 1;
+}
+
 .slide-up {
     animation: slideUp 0.6s ease forwards;
     opacity: 0;
@@ -911,6 +988,11 @@ button { cursor: pointer; font-family: var(--font-primary); border: none; backgr
 @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
 }
 
 @keyframes slideUp {
