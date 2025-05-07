@@ -2,7 +2,6 @@
 const loader = document.querySelector('.loader');
 const navbar = document.querySelector('.navbar');
 const navLinks = document.querySelectorAll('.nav-menu a');
-const hamburger = document.querySelector('.hamburger');
 const backToTop = document.querySelector('.back-to-top');
 const faqItems = document.querySelectorAll('.faq-item');
 const copyIpButtons = document.querySelectorAll('.copy-ip');
@@ -184,14 +183,6 @@ function initFeaturesCarousel() {
         }
     }
 
-    // Gestion des flèches
-    if (leftArrow) {
-        leftArrow.addEventListener('click', () => scrollToCard(currentIndex - 1));
-    }
-    if (rightArrow) {
-        rightArrow.addEventListener('click', () => scrollToCard(currentIndex + 1));
-    }
-
     // Gestion des touches du clavier
     document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft') {
@@ -312,14 +303,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 navLinks.forEach(l => l.classList.remove('active'));
                 link.classList.add('active');
             });
-        });
-    }
-
-    // Hamburger menu
-    if (hamburger) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            if (navbar) navbar.classList.toggle('active');
         });
     }
 
