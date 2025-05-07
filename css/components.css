@@ -1,6 +1,27 @@
 /* Styles pour les composants réutilisables */
 
 /* Header et Footer */
+
+.header .nav-menu a {
+    text-decoration: none !important;
+    box-shadow: none !important;
+    border-bottom: none !important;
+    position: relative;
+    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header .nav-menu a::after {
+    display: none !important;
+}
+
+.header .nav-menu a:hover,
+.header .nav-menu a.active {
+    color: var(--primary) !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+    border-bottom: none !important;
+}
+
 .header {
     position: fixed;
     top: 0;
@@ -72,16 +93,26 @@
     top: 110%;
     right: 0;
     background: var(--bg-darker);
-    border-radius: 12px;
-    padding: 0.5rem 0;
-    min-width: 160px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    border-radius: 16px;
+    padding: 0.7rem 0;
+    min-width: 180px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.22);
     display: none;
     z-index: 1001;
     flex-direction: column;
     align-items: stretch;
-    animation: fadeIn 0.18s;
+    animation: fadeInLang 0.24s cubic-bezier(0.4,0,0.2,1);
+    border: 1.5px solid rgba(252,139,79,0.10);
+    backdrop-filter: blur(6px);
+    overflow: hidden;
 }
+
+:root[data-theme='light'] .lang-menu {
+    background: var(--bg-light);
+    border: 1.5px solid rgba(252,139,79,0.14);
+    box-shadow: 0 8px 32px rgba(252,139,79,0.09);
+}
+
 
 .lang-dropdown.open .lang-menu,
 .lang-menu.show {
@@ -89,22 +120,42 @@
 }
 
 .lang-option {
-    display: block;
+    display: flex;
+    align-items: center;
     width: 100%;
-    padding: 0.65rem 1.2rem;
+    padding: 0.8rem 1.1rem 0.8rem 1.1rem;
     background: transparent;
     border: none;
     color: var(--text-primary);
     text-align: left;
     cursor: pointer;
-    border-radius: 6px;
-    transition: all 0.2s ease;
+    border-radius: 0;
+    font-size: 1.08rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: background 0.18s, color 0.18s, transform 0.22s cubic-bezier(0.4,0,0.2,1);
+    margin: 0.05rem 0;
 }
+
+:root[data-theme='light'] .lang-option {
+    color: var(--text-primary);
+}
+
 
 .lang-option:hover, .lang-option.active {
     background: var(--bg-light);
     color: var(--primary);
+    transform: translateX(4px) scale(1.04);
+    box-shadow: 0 2px 8px rgba(252,139,79,0.10);
 }
+
+:root[data-theme='light'] .lang-option:hover,
+:root[data-theme='light'] .lang-option.active {
+    background: var(--bg-darker);
+    color: var(--primary);
+    box-shadow: 0 2px 8px rgba(252,139,79,0.08);
+}
+
 
 /* Bouton "Back to Top" */
 .back-to-top {
