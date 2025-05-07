@@ -8,6 +8,9 @@ const translations = {
         
         // Hero Section
         'hero-title-main': 'A Minecraft server',
+        'hero-title-unique': 'Unique Features',
+        'hero-title-community': 'Innovative Community',
+        'hero-title-adventure': 'Join the Adventure',
         'hero-desc': 'An innovative Minecraft server offering a unique gaming experience with exclusive features, performance and security.',
         'hero-play': 'Play now',
         'hero-discord': 'Join Discord',
@@ -83,6 +86,9 @@ const translations = {
         
         // Hero Section
         'hero-title-main': 'Un serveur Minecraft',
+        'hero-title-unique': 'Fonctionnalités uniques',
+        'hero-title-community': 'Communauté innovante',
+        'hero-title-adventure': 'Rejoins l\'aventure',
         'hero-desc': 'Un serveur Minecraft innovant offrant une expérience de jeu unique avec des fonctionnalités exclusives, des performances et une sécurité optimales.',
         'hero-play': 'Jouer maintenant',
         'hero-discord': 'Rejoindre Discord',
@@ -158,6 +164,9 @@ const translations = {
        
         // Hero Section
         'hero-title-main': 'Un servidor de Minecraft',
+        'hero-title-unique': 'Características únicas',
+        'hero-title-community': 'Comunidad innovadora',
+        'hero-title-adventure': 'Únete a la aventura',
         'hero-desc': 'Un servidor de Minecraft innovador que ofrece una experiencia de juego única con características exclusivas, rendimiento y seguridad.',
         'hero-play': 'Jugar ahora',
         'hero-discord': 'Unirse a Discord',
@@ -233,6 +242,9 @@ const translations = {
        
         // Hero Section
         'hero-title-main': 'Ein Minecraft-Server',
+        'hero-title-unique': 'Einzigartige Funktionen',
+        'hero-title-community': 'Innovative Community',
+        'hero-title-adventure': 'Begib dich ins Abenteuer',
         'hero-desc': 'Ein innovativer Minecraft-Server, der ein einzigartiges Spielerlebnis mit exklusiven Funktionen, Leistung und Sicherheit bietet.',
         'hero-play': 'Jetzt spielen',
         'hero-discord': 'Discord beitreten',
@@ -308,6 +320,9 @@ const translations = {
        
         // Hero Section
         'hero-title-main': 'Un server de Minecraft',
+'hero-title-unique': 'Caracteristici unice',
+'hero-title-community': 'Comunitate inovatoare',
+'hero-title-adventure': 'Pornește aventura',
         'hero-desc': 'Un server Minecraft inovator care oferă o experiență de joc unică cu caracteristici exclusive, performanță și securitate.',
         'hero-play': 'Joacă acum',
         'hero-discord': 'Alătură-te Discord',
@@ -383,6 +398,9 @@ const translations = {
        
         // Hero Section
         'hero-title-main': 'Сервер Minecraft',
+        'hero-title-unique': 'Уникальные особенности',
+        'hero-title-community': 'Инновационное сообщество',
+        'hero-title-adventure': 'Присоединяйтесь к приключению',
         'hero-desc': 'Инновационный сервер Minecraft, предлагающий уникальный игровой опыт с эксклюзивными функциями, производительностью и безопасностью.',
         'hero-play': 'Играть сейчас',
         'hero-discord': 'Присоединиться к Discord',
@@ -458,6 +476,9 @@ const translations = {
        
         // Hero Section
         'hero-title-main': 'Minecraft 服务器',
+        'hero-title-unique': '独特功能',
+        'hero-title-community': '创新社区',
+        'hero-title-adventure': '加入冒险',
         'hero-desc': '一个创新的 Minecraft 服务器，提供独特的游戏体验，具有独家功能、高性能和安全保障。',
         'hero-play': '立即游戏',
         'hero-discord': '加入 Discord',

@@ -275,8 +275,35 @@ function initFAQ() {
     }
 }
 
+// Animation cyclique du titre hero
+function cycleHeroTitleText() {
+    const titleTexts = document.querySelectorAll('.title-wrapper .title-text');
+    if (titleTexts.length === 0) return;
+    let current = 0;
+    // Force la classe active sur le premier au chargement
+    titleTexts.forEach((el, i) => el.classList.remove('active'));
+    titleTexts[0].classList.add('active');
+    setInterval(() => {
+        // Retire les classes actives et d'animation de l'actuel
+        titleTexts[current].classList.remove('active', 'slide-up');
+        // Prépare le prochain index
+        current = (current + 1) % titleTexts.length;
+        // Ajoute la classe d'animation avant d'activer
+        titleTexts[current].classList.add('slide-up');
+        // Force le reflow pour que l'animation soit prise en compte même si la classe reste
+        void titleTexts[current].offsetWidth;
+        titleTexts[current].classList.add('active');
+        // Retire la classe d'animation après la transition
+        setTimeout(() => {
+            titleTexts[current].classList.remove('slide-up');
+        }, 500);
+    }, 2500);
+}
+
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
+    cycleHeroTitleText();
+
     // Remove loader if it exists
     if (loader) {
         setTimeout(() => {
@@ -355,6 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const theme = document.documentElement.getAttribute('data-theme');
         const header = document.querySelector('.header');
         
+        if (!header) return;
         if (theme === 'light') {
             header.classList.add('light-theme');
         } else {
