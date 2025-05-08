@@ -1,284 +1,410 @@
-/* Variables */
+/* Variables Globales */
 :root {
     --primary: #fc8b4f;
-    --primary-dark: #c96a2e;
+    --primary-dark: #dd612f;
     --text-primary: #ffffff;
     --text-secondary: #b0b0b0;
     --text-muted: #707070;
-    --bg-dark: #111014;
-    --bg-darker: #18171b;
-    --bg-light: #23222a;
-    --bg-lighter: #1a1a1f;
+    --bg-dark: #111014;    /* Utilisé pour body en dark theme */
+    --bg-darker: #18171b; /* Utilisé pour Features bg, Footer bg, Lang Menu bg (dark) */
+    --bg-light: #23222a;   /* Utilisé pour btn bg, feature cards, join steps, FAQ item active bg */
+    --bg-lighter: #1a1a1f; /* Utilisé pour server-ip bg (ancien hero), footer border */
     --border-radius: 8px;
     --box-shadow: 0 8px 16px rgba(0, 0, 0, 0.18);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --font-primary: 'Poppins', sans-serif;
 }
 
+/* Variables pour le Thème Clair */
 :root[data-theme='light'] {
-    --primary: #fc8b4f;
-    --primary-dark: #e07a3a;
-    --text-primary: #18171b;
-    --text-secondary: #444;
-    --text-muted: #888;
-    --bg-dark: #f7f7fa;
-    --bg-darker: #f0f0f3;
-    --bg-light: #fff;
-    --bg-lighter: #f7f7fa;
-    --box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+    --primary: #fc8b4f; /* Reste souvent identique */
+    --primary-dark: #dd612f;
+    --text-primary: #18171b; /* Texte principal devient sombre */
+    --text-secondary: #444444;
+    --text-muted: #888888;
+    --bg-dark: #f7f7fa;     /* Fond principal du body en light theme */
+    --bg-darker: #f0f0f3;  /* Features bg, Footer bg, Lang Menu bg (light) */
+    --bg-light: #ffffff;    /* btn bg, feature cards, join steps, FAQ item active bg */
+    --bg-lighter: #f7f7fa;  /* server-ip bg (ancien hero), footer border */
+    --box-shadow: 0 8px 16px rgba(0,0,0,0.08); /* Ombre plus légère */
 }
 
-/* Reset & Base */
+/* ==========================================================================
+   Reset & Base Styles
+   ========================================================================== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; font-size: 16px; }
-body { font-family: var(--font-primary); background-color: var(--bg-dark); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+body {
+    font-family: var(--font-primary);
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--text-primary); text-decoration: none; transition: var(--transition); }
-ul, ol { list-style: none; }
-button { cursor: pointer; font-family: var(--font-primary); border: none; background: none; transition: var(--transition); }
-.container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+ul, ol { list-style: none; } /* Déjà dans reset, mais peut rester pour clarté */
+button {
+    cursor: pointer;
+    font-family: var(--font-primary);
+    border: none;
+    background: none;
+    transition: var(--transition);
+    color: inherit; /* Assure que les boutons héritent la couleur du texte par défaut */
+}
 
-/* Boutons universels */
-.btn-style, .btn, .nav-icon, .lang-btn.globe {
+/* ==========================================================================
+   Utilitaires (Container, Section Header)
+   ========================================================================== */
+.container { /* Utilisé dans index.html et par header/footer */
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.section-header { /* Utilisé dans Features, FAQ, Join */
+    text-align: center;
+    margin-bottom: 3rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    /* text-align, margin-left, margin-right auto sont gérés par le parent flex */
+    color: var(--text-primary); /* Couleur de base */
+}
+
+.section-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto; /* Reste utile si le texte est plus court que max-width */
+}
+
+/* ==========================================================================
+   Styles de Boutons Globaux
+   ========================================================================== */
+/* .btn-style était combiné, séparons pour clarté si .btn est la base principale */
+.btn {
     border: 1.5px solid transparent;
-    border-radius: 2rem;
-    font-size: 1.08rem;
+    border-radius: 2rem; /* De style.css */
+    font-size: 1.08rem; /* De style.css, ajusté plus bas pour .hero .btn */
     font-weight: 600;
-    padding: 0.65rem 1.3rem;
+    padding: 0.65rem 1.3rem; /* De style.css, ajusté plus bas pour .hero .btn */
     background: var(--bg-light);
     color: var(--text-secondary);
     transition: var(--transition);
-    display: flex;
+    display: inline-flex; /* Modifié pour mieux gérer alignement icône/texte */
     align-items: center;
+    justify-content: center; /* Centre le contenu du bouton */
     gap: 0.75rem;
     box-shadow: none;
     position: relative;
     overflow: hidden;
+    text-decoration: none; /* Assurer pour les <a> stylés en .btn */
+    cursor: pointer;
 }
-.btn-style:hover, .btn:hover, .nav-icon:hover, .lang-btn.globe:hover, .lang-btn.globe.active {
+
+.btn:hover {
     border-color: var(--primary);
     box-shadow: 0 4px 20px rgba(0,0,0,0.18);
     color: var(--primary);
-    background: var(--bg-light);
+    /* background: var(--bg-light); conservé */
 }
 
-.btn-primary { background-color: var(--primary); color: var(--text-primary); }
+/* Effet de survol subtil pour les boutons */
+
+.btn-primary { background-color: var(--primary); color: var(--text-primary); /* Etait #ffffff */ }
 .btn-primary:hover {
     background-color: var(--primary-dark);
-    color: #fff;
+    color: var(--text-primary); /* Etait #ffffff */
+    border-color: var(--text-primary); /* Optionnel: foncer la bordure aussi */
+    transform: translateX(3px); /* Maintient l'animation de survol */
 }
-.btn-discord { background-color: #5865F2; color: var(--text-primary); }
+
+.btn-discord { background-color: #5865F2; color: var(--text-primary); /* Etait #ffffff */ }
 .btn-discord:hover {
     background-color: #4752C4;
+    border-color: var(--primary);
+    color: var(--text-primary); /* Etait #ffffff */
+    border-color: var(--text-primary);
+    transform: translateX(3px); /* Maintient l'animation de survol */
+}
+
+/* .btn-secondary et .btn-dark ont été modifiés dans la section HERO,
+   ceux-ci sont les versions de base si utilisés ailleurs. */
+.btn-secondary {
+    background: var(--bg-light); /* Fond de base */
+    color: var(--text-primary); /* Texte de base (était #fff) */
+    border: 1.5px solid transparent; /* Bordure transparente par défaut */
+}
+.btn-secondary:hover { /* Le survol par défaut ajoute une bordure primaire */
+    background: var(--bg-light); /* Conserve le fond */
+    color: var(--primary);
+    border-color: var(--primary); /* La bordure devient primaire */
+    transform: translateX(3px); /* Maintient l'animation de survol */
+}
+
+.btn-dark {
+    background: var(--bg-light); /* Fond de base (était #23232b mais unifié) */
+    color: var(--text-primary); /* Texte de base (était #fff) */
+}
+.btn-dark:hover {
+    background: var(--bg-light); /* Conserve le fond */
+    color: var(--primary);
+    border-color: var(--primary); /* La bordure devient primaire */
+    transform: translateX(3px); /* Maintient l'animation de survol */
+}
+
+/* Styles light theme pour Boutons Globaux */
+:root[data-theme='light'] .btn {
+    background: var(--bg-light); /* #fff en light */
+    color: var(--text-primary); /* Texte sombre en light */
+}
+:root[data-theme='light'] .btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    /* background: var(--bg-light); conservé */
+}
+:root[data-theme='light'] .btn-primary {
+    background: var(--primary);
+    color: #fff; /* Texte blanc sur fond primaire */
+}
+:root[data-theme='light'] .btn-primary:hover {
+    background: var(--primary-dark);
     color: #fff;
 }
-.btn-secondary { background: var(--bg-light); color: #fff; border: 1.5px solid transparent; }
-.btn-secondary:hover { background: var(--bg-light); color: var(--primary); border-color: transparent; }
-.btn-dark { background: var(--bg-light); color: #fff; border: none; }
-.btn-dark:hover { background: #18181d; color: var(--primary); }
+/* .btn-discord a sa propre couleur de fond, texte blanc ok */
+:root[data-theme='light'] .btn-discord { color: #5865F2; }
 
-.btn::after, .nav-icon::after, .lang-btn.globe::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateX(-100%);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+:root[data-theme='light'] .btn-secondary,
+:root[data-theme='light'] .btn-dark {
+    background: var(--bg-light); /* #fff en light */
+    color: var(--text-primary); /* Texte sombre */
+    border: 1.5px solid #e0e0e0; /* Bordure légère pour définition */
 }
-.btn:hover::after, .nav-icon:hover::after, .lang-btn.globe:hover::after { transform: translateX(0); }
-
-/* Loader */
-.loader, .loader-content, .loader-logo, .loader-progress, .loader-bar { display: none !important; }
-
-/* Header & Navbar */
-.header { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; background-color: transparent; transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1); padding: 1rem 0; backdrop-filter: none; }
-.header::after { content: none !important; }
-.header.scrolled::after { opacity: 1; }
-.header.scrolled { background-color: rgba(10, 10, 10, 0.85); backdrop-filter: blur(3px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10); padding: 1rem 0; }
-.header .container { display: flex; align-items: center; justify-content: center; }
-.header .navbar { margin: 0 auto; }
-.navbar { display: flex; align-items: center; justify-content: flex-start; gap: 0; width: 100%; }
-.logo { flex: 0 0 auto; margin-right: 1.2rem; }
-.logo img { height: 40px; width: auto; }
-.logo-text { font-size: 1.18rem; font-weight: 700; color: var(--text-primary); letter-spacing: 0.5px; margin-left: 0.3rem; display: flex; align-items: center; }
-.lang-dropdown { margin-right: 0; }
-.nav-separator { display: inline-block; width: 1px; height: 28px; background: #23232b; margin: 0 18px 0 0; vertical-align: middle; opacity: 0.7; }
-.nav-menu { flex: 1 1 auto; display: flex; justify-content: center; }
-.nav-menu ul { display: flex; gap: 2.2rem; margin-right: 1.2rem; }
-.nav-menu a { font-weight: 500; font-size: 1.08rem; text-transform: none; letter-spacing: 0.2px; padding: 0.5rem 0; position: relative; }
-.nav-menu a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--primary); transition: var(--transition); }
-.nav-menu a:hover::after, .nav-menu a.active::after { width: 100%; }
-.header-actions { flex: 0 0 auto; display: flex; align-items: center; gap: 1.2rem; margin-left: 3rem; }
-
-/* Uniformisation des boutons de la navbar */
-.nav-icon, .lang-btn.globe, .theme-toggle {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: var(--bg-light);
-    color: var(--text-secondary);
-    transition: var(--transition);
-    padding: 0;
-    border: 1.5px solid transparent;
-}
-
-.nav-icon:hover, .lang-btn.globe:hover, .theme-toggle:hover {
-    border-color: var(--primary);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+:root[data-theme='light'] .btn-secondary:hover,
+:root[data-theme='light'] .btn-dark:hover {
     color: var(--primary);
-    background: var(--bg-light);
+    border-color: var(--primary); /* La bordure devient primaire */
 }
 
-/* Ajustement du dropdown de langue */
-.lang-btn.globe {
-    width: auto;
-    padding: 0 1rem;
-    border-radius: 2rem;
-    gap: 0.5rem;
-}
 
-.lang-btn.globe svg {
-    width: 20px;
-    height: 20px;
-}
-
-.theme-toggle svg {
-    width: 20px;
-    height: 20px;
-}
-
-.nav-icon i {
-    font-size: 1.2rem;
-}
-
-/* Hero Section */
-.hero {
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+.hero { /* Section principale du Hero */
     position: relative;
     min-height: 100vh;
-    display: flex;
+    display: flex; /* Changé pour flex pour mieux gérer .hero-flex */
     align-items: center;
     justify-content: center;
-    text-align: center;
-    color: #fff;
+    text-align: center; /* Par défaut, mais .hero-left le modifiera */
+    color: var(--text-primary); /* Etait #fff, maintenant var */
     overflow: hidden;
 }
 
-.hero-bg {
+.hero-bg { /* Fond image/vidéo du hero */
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     background: url('../img/hero-bg.jpg') no-repeat center center/cover;
-    z-index: -1;
+    z-index: -1; /* Derrière tout le contenu du hero */
 }
 
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
-    z-index: 2;
+.hero .container.hero-flex { /* container spécifique au hero */
+    /* z-index: 1; pour être au-dessus de l'overlay potentiel */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centre .hero-left si pas width 100% */
+    gap: 0; /* Pas d'espace entre .hero-left et .hero-right (s'il existait) */
+    min-height: 70vh;
 }
 
-.hero-content {
+.hero .hero-left { /* Conteneur du texte et boutons du hero */
+    /* width:100% est inline dans HTML, peut être déplacé ici si toujours vrai */
+    width: 100%; /* Style inline déplacé */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    align-items: flex-start; /* Aligne le contenu à gauche */
+    justify-content: center;
+    min-width: 0; /* Pour flexbox */
+    text-align: left; /* Contenu textuel aligné à gauche */
+}
+
+.hero .hero-title { /* Titre principal H1 */
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1.08;
+    margin-bottom: 1.2rem;
+    color: var(--text-primary);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* De style.css précédent */
+}
+
+.hero .hero-brand { /* Span "GANGUI" dans le titre */
+    color: var(--primary);
+    font-size: 6.5rem;
+    font-weight: 900;
+    display: block; /* Pour occuper sa propre ligne si <br> est après */
+    text-shadow: 
+        0 0 10px rgba(252, 139, 79, 0.5),
+        0 0 20px rgba(252, 139, 79, 0.3),
+        0 0 30px rgba(252, 79, 79, 0.2);
+    
+}
+
+/* Styles pour l'animation du titre (hero-title-main, hero-title-unique, etc.) */
+.hero .title-container {
+    display: block;
     position: relative;
-    z-index: 2;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
+    width: 100%;
+    min-height: 1.5em; /* Optionnel, peut être ajusté */
+    overflow: visible;
+    margin: 0; padding: 0;
 }
 
-.hero-title {
-    font-size: 4rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    text-align: center;
+.hero .title-wrapper { /* Conteneur direct des span animés */
+    position: relative; /* Absolute pour les enfants */
+    display: block;
+    height: 100%; /* Prend la hauteur du title-container */
+    width: 100%;
 }
 
-.hero-subtitle {
+.hero .title-text { /* Chaque span de texte animé */
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.1s cubic-bezier(0.22, 0.61, 0.36, 1) 0.03s, transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: transform, opacity;
+    pointer-events: none; /* Non cliquable */
+    white-space: nowrap; /* Empêche le retour à la ligne du texte animé */
+}
+
+.hero .title-text.active {
+    opacity: 1;
+    z-index: 1; /* Au-dessus des autres non actifs */
+    transform: translateY(0);
+}
+/* Sélecteur pour le fallback No-JS */
+.no-js .title-text:first-child { /* Style de style.css pour le fallback */
+    opacity: 1 !important;
+    transform: none !important;
+    position: static !important;
+}
+
+
+.hero .hero-desc { /* Paragraphe de description */
+    color: var(--text-secondary);
     font-size: 1.5rem;
     margin-bottom: 2rem;
-    text-align: center;
+    max-width: 800px;
 }
 
-.server-ip {
-    background-color: var(--bg-lighter);
-    border-radius: var(--border-radius);
-    padding: 1.25rem;
-    margin-bottom: 2.5rem;
+.hero .hero-buttons { /* Conteneur des boutons du hero */
     display: flex;
+    gap: 1.1rem;
     flex-wrap: wrap;
+}
+.hero .hero-buttons.hero-buttons-inline { /* Modificateur pour l'alignement */
+    /* display:flex déjà sur .hero-buttons */
+    /* gap, margin-top déjà de style.css */
     align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
+    justify-content: flex-start;
+    margin-top: 1.5rem; /* De style.css */
 }
 
-.ip-display {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 1.25rem;
-    font-weight: 600;
+/* Ajustement de la taille des boutons spécifiques au Hero (plus petits que les .btn globaux) */
+.hero .btn { /* Surcharge les .btn globaux pour le hero */
+    font-size: 0.98rem; /* De style.css (HERO BUTTONS SMALLER) */
+    padding: 0.65rem 1.3rem; /* De style.css (HERO BUTTONS SMALLER) */
+    border-radius: 1.3rem; /* De style.css (HERO BUTTONS SMALLER) */
+    /* box-shadow:none; déjà sur .btn global */
 }
 
-.copy-ip {
-    background-color: var(--primary);
-    color: var(--text-primary);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
+/* Styles Hero pour le thème clair */
+:root[data-theme='light'] .hero {
+    background: var(--bg-dark); /* #f7f7fa en light, ancien `!important` retiré si possible */
+    color: var(--text-primary); /* #18171b en light */
 }
 
-.copy-ip:hover {
-    background-color: var(--primary-dark);
-    transform: translateY(-2px);
+:root[data-theme='light'] .hero .hero-title, 
+:root[data-theme='light'] .hero .hero-brand {
+    text-shadow: 
+        0 0 10px rgba(252, 139, 79, 0.5),
+        0 0 20px rgba(252, 139, 79, 0.3),
+        0 0 30px rgba(252, 79, 79, 0.2);
 }
 
-.version-badge {
-    background-color: var(--accent);
-    color: var(--text-primary);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
+:root[data-theme='light'] .hero .hero-desc, 
+:root[data-theme='light'] .hero .title-text {
+    color: var(--text-primary) !important; /* Important pour surcharger la couleur de base */
+    text-shadow: none; /* Optionnel: enlever l'ombre en thème clair */
 }
 
-.online-players {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--text-secondary);
+/* Styles light pour les boutons spécifiques du Hero */
+:root[data-theme='light'] .hero .btn-secondary,
+:root[data-theme='light'] .hero .btn-dark {
+    background: var(--bg-light); /* #fff en light */
+    color: var(--text-primary); /* Texte sombre */
+    border: 1.5px solid #e0e0e0; /* Bordure pour définition */
 }
-
-.player-count {
+:root[data-theme='light'] .hero .btn-secondary:hover,
+:root[data-theme='light'] .hero .btn-dark:hover {
     color: var(--primary);
-    font-weight: 700;
+    border-color: var(--primary); /* La bordure devient primaire */
 }
 
-.hero-buttons {
-    display: flex;
+
+/* Responsive pour Hero Section */
+@media (max-width: 900px) {
+    .hero .hero-title { font-size: 3rem; } /* Etait 1.7rem, ajusté */
+    .hero .hero-brand { font-size: 4rem; } /* Etait 1.7rem, ajusté */
+    .hero .hero-desc { font-size: 2.2rem; }
+}
+
+@media (max-width: 768px) { /* De style.css général */
+    .hero .hero-title { font-size: 3rem; } /* Etait 1.7rem, ajusté */
+    .hero .hero-brand { font-size: 4rem; } /* Etait 1.7rem, ajusté */
+    .hero .hero-desc { font-size: 2.2rem; }
+}
+
+@media (max-width: 600px) {
+    .hero .hero-title { font-size: 2rem; } /* Etait 1.7rem, ajusté */
+    .hero .hero-brand { font-size: 4rem; } /* Etait 1.7rem, ajusté */
+    .hero .hero-desc { font-size: 1.1rem; }
+}
+
+@media (max-width: 576px) { /* De style.css général */
+    .hero .hero-title { font-size: 2rem; } /* Etait 1.7rem, ajusté */
+    .hero .hero-brand { font-size: 4rem; } /* Etait 1.7rem, ajusté */
+    .hero .hero-desc { font-size: 1.1rem; }
+}
+
+/* ==========================================================================
+   Features Section
+   ========================================================================== */
+   .features {
+    position: relative;
+    min-height: 100vh;
+    display: flex; /* Changé pour flex pour mieux gérer .hero-flex */
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-}
-
-/* Features Section */
-.features {
-    padding: 6rem 5vw;
-    background-color: var(--bg-darker);
-    position: relative;
-    overflow: visible !important;
-    perspective: 1000px;
+    text-align: left; /* Par défaut, mais .hero-left le modifiera */
+    color: var(--text-primary); /* Etait #fff, maintenant var */
+    overflow: hidden;
 }
 
 .features .container {
@@ -429,11 +555,31 @@ button { cursor: pointer; font-family: var(--font-primary); border: none; backgr
 .carousel-dot.active {
     background: var(--primary);
     transform: scale(1.2) translateZ(10px);
-    }
-/* FAQ Section */
-.faq {
-    padding: 6rem 0;
-    background-color: var(--bg-dark);
+}
+
+/* Styles light theme pour Features */
+:root[data-theme='light'] .feature-card,
+:root[data-theme='light'] .feature-card.active { /* Ombre douce pour light theme */
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08) !important; /* important pour surcharger l'ombre de base */
+}
+:root[data-theme='light'] .feature-card::before { /* Ajuster le gradient pour light theme */
+    background: linear-gradient(135deg, rgba(var(--primary-rgb, 252,139,79),0.08), rgba(0,0,0,0.03));
+    /* Note: --primary-rgb devrait être défini si vous voulez utiliser rgba avec une variable de couleur hex */
+}
+
+
+/* ==========================================================================
+   FAQ Section
+   ========================================================================== */
+   .faq {
+    position: relative;
+    min-height: 100vh;
+    display: flex; /* Changé pour flex pour mieux gérer .hero-flex */
+    align-items: center;
+    justify-content: center;
+    text-align: center; /* Par défaut, mais .hero-left le modifiera */
+    color: var(--text-primary); /* Etait #fff, maintenant var */
+    overflow: hidden;
 }
 
 .faq-content {
@@ -479,7 +625,7 @@ button { cursor: pointer; font-family: var(--font-primary); border: none; backgr
 }
 
 .faq-item:hover {
-    transform: translateX(5px);
+    transform: translateX(3px);
     border-color: var(--primary);
 }
 
@@ -530,11 +676,19 @@ button { cursor: pointer; font-family: var(--font-primary); border: none; backgr
     word-wrap: break-word;
 }
 
-/* Join Section */
+
+/* ==========================================================================
+   Join Section
+   ========================================================================== */
 .join {
     position: relative;
-    padding: 5rem 0;
-    background: var(--bg-secondary);
+    min-height: 100vh;
+    display: flex; /* Changé pour flex pour mieux gérer .hero-flex */
+    align-items: center;
+    justify-content: center;
+    text-align: center; /* Par défaut, mais .hero-left le modifiera */
+    color: var(--text-primary); /* Etait #fff, maintenant var */
+    overflow: hidden;
 }
 
 .join-bg {
@@ -640,738 +794,81 @@ button { cursor: pointer; font-family: var(--font-primary); border: none; backgr
     text-align: left;
 }
 
-.hero-title {
-    font-size: 4rem;
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-    color: var(--text-primary);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.title-container {
-    display: inline-block;
-    position: relative;
-    top: 0;
-    width: 100%;
-    height: 1em;
-    overflow: visible;
-    margin: 0;
-    padding: 0;
-    vertical-align: top;
-}
-
-.title-wrapper {
-    position: relative;
-    display: block;
-    height: 1em;
-    width: 100%;
-    overflow: visible;
-    margin: 0;
-    padding: 0;
-}
-
-.title-text {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    opacity: 0;
-    z-index: 0;
-    transform: translateY(30px);
-    transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1), transform 0.5s cubic-bezier(0.4,0,0.2,1);
-    will-change: transform, opacity;
-    pointer-events: none;
-    white-space: nowrap;
-}
-
-.title-text.active {
-    opacity: 1;
-    z-index: 1;
-    transform: translateY(0);
-}
-
-.title-text:not(.active) {
-    opacity: 0;
-    z-index: 0;
-}
-
-.title-text.active {
-    opacity: 1;
-    transform: translateY(0);
-    z-index: 1;
+/* Responsive pour Join Section */
+@media (max-width: 768px) {
+    .join-steps {
+        gap: 1.5rem; /* Réduit l'espace entre les cartes */
+        align-items: center; /* Centre les cartes si elles ne remplissent pas la ligne */
+    }
+    .join-step {
+        min-width: calc(100% - 2rem); /* Prend presque toute la largeur sur mobile */
+        flex-basis: auto; /* Annule le flex-basis pour qu'il prenne la largeur */
+    }
 }
 
 
-
-.step-content p {
-    color: var(--text-secondary);
-    font-size: 1rem;
-    text-align: left;
-}
-
-.server-ip-small {
-    margin-top: 0.7rem;
-}
-
-.no-js .title-text:first-child {
-    opacity: 1 !important;
-    transform: none !important;
-    position: static !important;
-}
-
-/* Footer */
-.footer {
-    background-color: var(--bg-darker);
-    padding: 4rem 0 2rem;
-    border-top: 1px solid var(--bg-lighter);
-}
-
-.footer-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 3rem;
-}
-
-.footer-logo img {
-    height: 40px;
-    width: auto;
-}
-
-.social-links {
-    display: flex;
-    gap: 1rem;
-}
-
-.social-links a {
-    width: 40px;
-    height: 40px;
-    background-color: var(--bg-light);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition);
-}
-
-.social-links a:hover {
-    transform: translateY(-3px);
-}
-
-.social-links i {
-    font-size: 1.2rem;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
-}
-
-.footer-column h3 {
-    font-size: 1.1rem;
-    margin-bottom: 1.25rem;
-    font-weight: 600;
-    position: relative;
-    padding-bottom: 0.75rem;
-}
-
-.footer-column h3::after {
-    content: none !important;
-}
-
-.footer-column ul {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.footer-column a {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    display: inline-block;
-    transition: color 0.35s cubic-bezier(0.4,0,0.2,1), transform 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.35s cubic-bezier(0.4,0,0.2,1);
-}
-
-.footer-column a:hover {
-    color: var(--primary);
-    transform: translateX(3px);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-}
-
-:root[data-theme='light'] .footer-column a:hover {
-    box-shadow: none;
-}
-
-.server-status .status-indicator {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.status-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-}
-
-.status-dot.online {
-    background-color: #4caf50;
-    box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
-}
-
-.status-dot.offline {
-    background-color: #f44336;
-    box-shadow: 0 0 8px rgba(244, 67, 54, 0.5);
-}
-
-.server-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.info-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-}
-
-.info-value {
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid var(--bg-light);
-}
-
-.copyright {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-}
-
-.disclaimer {
-    color: var(--text-muted);
-    font-size: 0.8rem;
-}
-
-/* Back to Top Button */
-.back-to-top {
+/* ==========================================================================
+   Mouse Spotlight Effect
+   ========================================================================== */
+.mouse-spotlight {
     position: fixed;
-    bottom: -60px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    background-color: var(--primary);
-    color: var(--text-primary);
+    pointer-events: none; /* Ne pas interférer avec les clics */
+    z-index: 10; /* Valeur originale, peut être ajustée (ex: 9999 pour être au-dessus de tout) */
+    width: 500px; height: 500px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 90;
-    transition: var(--transition);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: radial-gradient(circle, rgba(252,139,79,0.12) 0%, rgba(252,139,79,0.06) 50%, transparent 70%); /* Ajusté pour être plus doux */
+    filter: blur(50px); /* Un peu moins de flou */
+    opacity: 0; /* Caché par défaut, activé par JS avec .spotlight-active sur body */
+    left: 50%; top: 50%; /* Centré par défaut, positionné par JS */
+    transform: translate(-50%, -50%);
+    transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1); /* Transition plus longue */
+    will-change: transform, opacity;
+}
+body.spotlight-active .mouse-spotlight { /* Activé par JS */
+    opacity: 0.35; /* Opacité quand actif (était 0.45) */
 }
 
-.back-to-top.show {
-    bottom: 30px;
-}
 
-.back-to-top:hover {
-    background-color: var(--primary-dark);
-    transform: translateY(-3px);
-}
+/* ==========================================================================
+   Animations Utilitaires
+   ========================================================================== */
+/* Classes et Keyframes pour animations (Fade, Slide, Scale) */
+.fade-in { animation: fadeIn 0.6s ease forwards; opacity: 0; }
+.fade-out { animation: fadeOut 0.6s ease forwards; opacity: 1; }
+.slide-up { animation: slideUp 0.5s cubic-bezier(0.4,0,0.2,1) forwards; opacity: 0; transform: translateY(20px); } /* slideUpHero renommé en slideUp */
+.slide-right { animation: slideRight 0.6s ease forwards; opacity: 0; transform: translateX(-20px); }
+.slide-left { animation: slideLeft 0.6s ease forwards; opacity: 0; transform: translateX(20px); }
+.scale-in { animation: scaleIn 0.6s ease forwards; opacity: 0; transform: scale(0.95); }
 
-/* Responsive Styles */
+@keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes fadeOut { 0% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes slideUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes slideRight { 0% { opacity: 0; transform: translateX(-20px); } 100% { opacity: 1; transform: translateX(0); } }
+@keyframes slideLeft { 0% { opacity: 0; transform: translateX(20px); } 100% { opacity: 1; transform: translateX(0); } }
+@keyframes scaleIn { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
+
+
+/* ==========================================================================
+   Styles @media Responsive Globaux
+   ========================================================================== */
 @media (max-width: 1024px) {
     .section-header h2 {
         font-size: 2.25rem;
     }
-    
-    .hero-title {
-        font-size: 3.5rem;
-    }
+    /* html { font-size: 15.5px; } // Optionnel, si besoin d'ajuster la base */
 }
 
 @media (max-width: 768px) {
     html {
-        font-size: 15px;
+        font-size: 15px; /* Règle globale pour mobile */
     }
-    
-    .nav-menu {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 80%;
-        max-width: 320px;
-        height: 100vh;
-        background-color: var(--bg-darker);
-        z-index: 100;
-        transition: var(--transition);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-    }
-    
-    .nav-menu.active {
-        right: 0;
-    }
-    
-    .nav-menu ul {
-        flex-direction: column;
-        gap: 1.5rem;
-        width: 100%;
-        padding: 0 2rem;
-        text-align: center;
-    }
-    .hero-title {
-        font-size: 3rem;
-    }
-    .hero-buttons {
-        flex-direction: column;
-        gap: 1rem;
-        width: 50%;
-    }
-    
-    .hero-buttons .btn {
-        width: 100%;
-    }
-    
-    .join-steps {
-        flex-direction: column;
-        gap: 1.5rem;
-        align-items: center;
+    .section-header h2 {
+        font-size: 2rem; /* Etait 2.25rem, puis 2rem dans .section-header h2 */
     }
 }
 
 @media (max-width: 576px) {
     .section-header h2 {
-        font-size: 2rem;
+        font-size: 1.8rem; /* Etait 2rem */
     }
-    
-    .hero-title {
-        font-size: 2.5rem;
-    }
-    
-    .hero-subtitle {
-        font-size: 1.2rem;
-    }
-    
-    .server-ip {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .footer-top {
-        flex-direction: column;
-        gap: 1.5rem;
-        text-align: center;
-    }
-}
-
-/* Animation Classes */
-.fade-in {
-    animation: fadeIn 0.6s ease forwards;
-    opacity: 0;
-}
-
-.fade-out {
-    animation: fadeOut 0.6s ease forwards;
-    opacity: 1;
-}
-
-.slide-up {
-    animation: slideUpHero 0.5s cubic-bezier(0.4,0,0.2,1) forwards;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-@keyframes slideUpHero {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.slide-right {
-    animation: slideRight 0.6s ease forwards;
-    opacity: 0;
-    transform: translateX(-20px);
-}
-
-.slide-left {
-    animation: slideLeft 0.6s ease forwards;
-    opacity: 0;
-    transform: translateX(20px);
-}
-
-.scale-in {
-    animation: scaleIn 0.6s ease forwards;
-    opacity: 0;
-    transform: scale(0.95);
-}
-
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-@keyframes fadeOut {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
-}
-
-@keyframes slideUp {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slideRight {
-    0% { opacity: 0; transform: translateX(-20px); }
-    100% { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes slideLeft {
-    0% { opacity: 0; transform: translateX(20px); }
-    100% { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes scaleIn {
-    0% { opacity: 0; transform: scale(0.95); }
-    100% { opacity: 1; transform: scale(1); }
-}
-
-/* --- HERO LEAFMC STYLE --- */
-.hero-flex {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    min-height: 70vh;
-}
-
-.hero-left {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    min-width: 0;
-}
-
-.hero-buttons.hero-buttons-inline {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.1rem;
-    margin-top: 1.5rem;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.hero-title {
-    font-size: 3.2rem;
-    font-weight: 800;
-    line-height: 1.08;
-    margin-bottom: 1.2rem;
-    text-align: left;
-}
-
-.hero-brand {
-    color: var(--primary);
-    font-size: 5.5rem;
-    font-weight: 900;
-    letter-spacing: -2px;
-    display: inline-block;
-}
-
-.hero-title-main,
-.hero-title-sub {
-    display: block;
-}
-
-.hero-desc {
-    color: var(--text-secondary);
-    font-size: 1.25rem;
-    margin-bottom: 2.2rem;
-    max-width: 600px;
-    text-align: left;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 1.1rem;
-    flex-wrap: wrap;
-}
-
-.btn {
-    border-radius: 2rem;
-    font-size: 1.08rem;
-    font-weight: 600;
-    padding: 0.85rem 2.1rem;
-    box-shadow: none;
-}
-
-.btn-secondary {
-    background: #23232b;
-    color: #fff;
-    border: 1.5px solid transparent;
-}
-
-.btn-secondary:hover {
-    background: #23232b;
-    color: var(--primary);
-    border-color: transparent;
-}
-
-.btn-dark {
-    background: #23232b;
-    color: #fff;
-    border: none;
-}
-
-.btn-dark:hover {
-    background: #18181d;
-    color: var(--primary);
-}
-
-.hero-right, .hero-logo-glow, .hero-logo-main { display: none !important; }
-
-@media (max-width: 900px) {
-    .hero-flex {
-        flex-direction: column;
-        min-height: 50vh;
-    }
-    .hero-buttons.hero-buttons-inline {
-        justify-content: center;
-        align-items: center;
-    }
-    .hero-left {
-        align-items: center;
-        text-align: center;
-    }
-    .hero-brand {
-        font-size: 2.7rem;
-    }
-}
-
-@media (max-width: 600px) {
-    .hero-title, .hero-brand {
-        font-size: 1.7rem;
-    }
-}
-
-/* --- LANG DROPDOWN --- */
-.lang-dropdown {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.lang-btn.globe {
-    background: none;
-    color: var(--text-secondary);
-    font-size: 1.08rem;
-    padding: 0.35rem 1.1rem 0.35rem 0.7rem;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border: 1.5px solid transparent;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    z-index: 11;
-}
-
-.lang-btn.globe:hover, .lang-btn.globe.active {
-    transform: none !important;
-}
-
-.lang-btn .fa-chevron-down {
-    font-size: 0.85em;
-    margin-left: 0.2em;
-}
-
-.lang-menu {
-    display: none;
-    position: absolute;
-    top: 110%;
-    right: 0;
-    min-width: 160px;
-    background: #19191e;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-    padding: 0.5rem 0;
-    z-index: 10;
-    flex-direction: column;
-    align-items: stretch;
-    animation: fadeIn 0.18s;
-}
-
-.lang-dropdown.open .lang-menu {
-    display: flex;
-}
-
-.lang-option {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1.08rem;
-    padding: 0.65rem 1.2rem;
-    text-align: left;
-    border-radius: 6px;
-    transition: background 0.18s, color 0.18s;
-    cursor: pointer;
-}
-
-.lang-option:hover, .lang-option.active {
-    background: var(--bg-light);
-    color: var(--primary);
-}
-
-/* --- HERO BUTTONS SMALLER --- */
-.hero-buttons .btn {
-    font-size: 0.98rem;
-    padding: 0.65rem 1.3rem;
-    border-radius: 1.3rem;
-}
-
-.nav-menu.nav-menu-right {
-    flex: 1 1 auto;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.nav-separator { display: none !important; }
-
-.hero .btn {
-    border: 1.5px solid transparent;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.hero .btn:hover {
-    border-color: var(--primary);
-    transform: translateX(5px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.18);
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 3rem;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.section-header h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 0.75rem;
-    text-transform: uppercase;
-    position: relative;
-    display: inline-block;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.section-header p {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.mouse-spotlight {
-    position: fixed;
-    pointer-events: none;
-    z-index: 10;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(252,139,79,0.18) 0%, rgba(252,139,79,0.10) 60%, transparent 100%);
-    filter: blur(60px);
-    opacity: 0.45;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.3s cubic-bezier(0.4,0,0.2,1);
-    will-change: transform, opacity;
-}
-body:not(.spotlight-active) .mouse-spotlight {
-    opacity: 0;
-    transition: opacity 0.3s cubic-bezier(0.4,0,0.2,1);
-}
-
-/* Ombre douce en mode clair pour les cards */
-:root[data-theme='light'] .feature-card,
-:root[data-theme='light'] .feature-card.active {
-    box-shadow: 0 8px 32px rgba(0,0,0,0.08) !important;
-}
-
-:root[data-theme='light'] .header {
-    background: #fff !important;
-    color: #18171b !important;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-}
-:root[data-theme='light'] .navbar a,
-:root[data-theme='light'] .nav-icon,
-:root[data-theme='light'] .lang-btn.globe,
-:root[data-theme='light'] .logo-text {
-    color: #18171b !important;
-}
-:root[data-theme='light'] .nav-menu a::after {
-    background: var(--primary);
-}
-:root[data-theme='light'] .header.scrolled {
-    background: #fff !important;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.10);
-}
-
-:root[data-theme='light'] .hero {
-    background: #f7f7fa !important;
-    color: #18171b !important;
-}
-:root[data-theme='light'] .hero-title,
-:root[data-theme='light'] .hero-brand,
-:root[data-theme='light'] .hero-desc {
-    color: #18171b !important;
-}
-:root[data-theme='light'] .hero-overlay {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.7), rgba(255,255,255,0.95)), url('../img/hero-bg.jpg') no-repeat center center/cover !important;
-}
-:root[data-theme='light'] .btn-primary {
-    background: var(--primary);
-    color: #fff;
-}
-:root[data-theme='light'] .btn-secondary, 
-:root[data-theme='light'] .btn-dark {
-    background: #fff;
-    color: #18171b;
-    border: 1.5px solid #e0e0e0;
-}
-:root[data-theme='light'] .btn-secondary:hover, 
-:root[data-theme='light'] .btn-dark:hover {
-    color: var(--primary);
-    border-color: var(--primary);
-}
-
-:root[data-theme='light'] .btn-discord {
-    color: #fff !important;
 }

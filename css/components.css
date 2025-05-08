@@ -1,36 +1,17 @@
 /* Styles pour les composants réutilisables */
 
-/* Header et Footer */
-
-.header .nav-menu a {
-    text-decoration: none !important;
-    box-shadow: none !important;
-    border-bottom: none !important;
-    position: relative;
-    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.header .nav-menu a::after {
-    display: none !important;
-}
-
-.header .nav-menu a:hover,
-.header .nav-menu a.active {
-    color: var(--primary) !important;
-    text-decoration: none !important;
-    box-shadow: none !important;
-    border-bottom: none !important;
-}
-
-.header {
+/* ==========================================================================
+   Header
+   ========================================================================== */
+   .header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 100;
-    background-color: transparent;
-    transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-    padding: 1rem 0;
+    background-color: var(--bg-dark);
+    transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 1rem 0; /* Maintenu depuis style.css, padding de scrolled a été enlevé car redondant */
     backdrop-filter: none;
 }
 
@@ -40,185 +21,223 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
 }
 
-.footer {
-    background-color: var(--bg-darker);
-    padding: 4rem 0 2rem;
-    border-top: 1px solid var(--bg-lighter);
-    margin-top: 4rem;
-}
-
-/* Menu de langues */
-.lang-dropdown {
-    position: relative;
+.header .container { /* Structure de base du container dans le header */
     display: flex;
     align-items: center;
+    justify-content: center; /* Modifié depuis style.css pour centrer la navbar */
 }
 
-.lang-btn.globe {
+.header .navbar { /* Styles spécifiques à la navbar dans le header */
+    margin: 0 auto; /* Assure le centrage si le container est plus large */
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.35rem 1.1rem 0.35rem 0.7rem;
-    background: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    font-size: 1.08rem;
-    border-radius: 12px;
-    border: 1.5px solid transparent;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    z-index: 11;
-}
-
-.lang-btn.globe:hover, .lang-btn.globe.active {
-    border-color: var(--primary);
-    color: var(--primary);
-    transform: none !important;
-}
-
-.lang-btn.globe svg {
-    width: 20px;
-    height: 20px;
-    transition: transform 0.3s ease;
-}
-
-.lang-current {
-    font-weight: 500;
-    min-width: 60px;
-    text-align: left;
-}
-
-.lang-menu {
-    position: absolute;
-    top: 110%;
-    right: 0;
-    background: var(--bg-darker);
-    border-radius: 16px;
-    padding: 0.7rem 0;
-    min-width: 180px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.22);
-    display: none;
-    z-index: 1001;
-    flex-direction: column;
-    align-items: stretch;
-    animation: fadeInLang 0.24s cubic-bezier(0.4,0,0.2,1);
-    border: 1.5px solid rgba(252,139,79,0.10);
-    backdrop-filter: blur(6px);
-    overflow: hidden;
-}
-
-:root[data-theme='light'] .lang-menu {
-    background: var(--bg-light);
-    border: 1.5px solid rgba(252,139,79,0.14);
-    box-shadow: 0 8px 32px rgba(252,139,79,0.09);
-}
-
-
-.lang-dropdown.open .lang-menu,
-.lang-menu.show {
-    display: flex;
-}
-
-.lang-option {
-    display: flex;
-    align-items: center;
+    justify-content: flex-start; /* Aligne les éléments de la navbar au début */
+    gap: 0; /* Potentiellement ajustable si besoin d'espace entre logo/nav/actions */
     width: 100%;
-    padding: 0.8rem 1.1rem 0.8rem 1.1rem;
-    background: transparent;
-    border: none;
-    color: var(--text-primary);
-    text-align: left;
-    cursor: pointer;
-    border-radius: 0;
-    font-size: 1.08rem;
+}
+
+.header .logo {
+    flex: 0 0 auto;
+    margin-right: 1.2rem;
+}
+
+.header .logo img {
+    height: 40px;
+    width: auto;
+    display: block; /* Assuré par le reset global, mais bon à garder si reset change */
+}
+
+.header .logo-text {
+    font-size: 1.18rem;
+    font-weight: 700;
+    color: var(--text-primary); /* Couleur de base, light theme gère la sienne */
+    letter-spacing: 0.5px;
+    margin-left: 0.3rem; /* Espace entre logo img et text, si style sur <a> est enlevé */
+    display: flex;
+    align-items: center;
+}
+
+/* Style pour l'élément <a> du logo pour s'assurer que display:flex et gap fonctionnent */
+.header .logo a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Ceci était un style inline, déplacé ici */
+    text-decoration: none; /* Assurer l'absence de soulignement */
+}
+.header .logo a:hover .logo-text { /* Optionnel: changer couleur du texte au survol du logo */
+    color: var(--primary);
+}
+
+
+.header .nav-menu {
+    flex: 1 1 auto; /* Prend l'espace disponible */
+    display: flex;
+    justify-content: center; /* Centre les items du menu */
+}
+/* La classe .nav-menu-right est utilisée dans header.html, elle ajuste la justification */
+.header .nav-menu.nav-menu-right {
+    justify-content: flex-end; /* Aligne les items à droite */
+}
+
+.header .nav-menu ul {
+    display: flex;
+    gap: 2.2rem;
+    margin-right: 1.2rem; /* Marge à droite des items du menu */
+    list-style: none; /* Assuré par le reset, mais réaffirmé ici */
+    padding: 0; margin: 0; /* Assuré par le reset */
+}
+
+.header .nav-menu a {
     font-weight: 500;
-    letter-spacing: 0.01em;
-    transition: background 0.18s, color 0.18s, transform 0.22s cubic-bezier(0.4,0,0.2,1);
-    margin: 0.05rem 0;
+    font-size: 1.08rem;
+    text-transform: none;
+    letter-spacing: 0.2px;
+    padding: 0.5rem 0;
+    position: relative;
+    color: var(--text-primary); /* Couleur de base des liens */
+    text-decoration: none !important; /* Surcharge de components.css */
+    box-shadow: none !important; /* Surcharge de components.css */
+    border-bottom: none !important; /* Surcharge de components.css */
+    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Surcharge de components.css */
 }
 
-:root[data-theme='light'] .lang-option {
-    color: var(--text-primary);
+/* L'effet ::after de style.css pour le soulignement est explicitement désactivé ici */
+.header .nav-menu a::after {
+    display: none !important; /* Surcharge de components.css */
 }
 
-
-.lang-option:hover, .lang-option.active {
-    background: var(--bg-light);
-    color: var(--primary);
-    transform: translateX(4px) scale(1.04);
-    box-shadow: 0 2px 8px rgba(252,139,79,0.10);
+.header .nav-menu a:hover,
+.header .nav-menu a.active {
+    color: var(--primary) !important; /* Surcharge de components.css */
 }
 
-:root[data-theme='light'] .lang-option:hover,
-:root[data-theme='light'] .lang-option.active {
-    background: var(--bg-darker);
-    color: var(--primary);
-    box-shadow: 0 2px 8px rgba(252,139,79,0.08);
+.header .header-actions {
+    flex: 0 0 auto; /* Ne grandit/rétrécit pas */
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-left: 3rem; /* Espace à gauche des actions */
 }
 
+/* Nav Separator - décision à prendre : visible ou non ? */
+/* Si toujours caché, seule la règle display:none est utile */
+.header .nav-separator {
+    display: none !important; /* Règle de style.css, si c'est voulu */
+    /* Si visible :
+    display: inline-block;
+    width: 1px;
+    height: 28px;
+    background: #23232b;
+    margin: 0 18px 0 0; // Ajuster les marges si nécessaire
+    vertical-align: middle;
+    opacity: 0.7;
+    */
+}
 
-/* Bouton "Back to Top" modernisé */
-.back-to-top {
-    position: fixed;
-    bottom: 2.5rem;
-    right: 2.5rem;
-    width: 48px;
-    height: 48px;
-    background: var(--bg-light);
-    color: var(--primary);
-    border: none;
-    border-radius: 50%;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.14);
+/* Styles uniformisés pour les icônes de la navbar (theme toggle, etc.) */
+.header .nav-icon,
+.header .theme-toggle { /* .lang-btn.globe est géré plus bas spécifiquement */
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.6rem;
-    cursor: pointer;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s, background 0.18s, color 0.18s, box-shadow 0.22s, transform 0.22s cubic-bezier(0.4,0,0.2,1);
-    z-index: 999;
-    outline: none;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    padding: 0;
     border: 1.5px solid transparent;
+    cursor: pointer;
 }
 
-.back-to-top.show,
-.back-to-top.visible {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.back-to-top:hover, .back-to-top:focus {
-    background: var(--primary);
-    color: #fff;
-    box-shadow: 0 8px 32px rgba(252,139,79,0.18);
-    transform: translateY(-6px) scale(1.10);
+.header .nav-icon:hover,
+.header .theme-toggle:hover {
     border-color: var(--primary);
-}
-
-:root[data-theme='light'] .back-to-top {
-    background: var(--bg-dark);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.18);
     color: var(--primary);
-    box-shadow: 0 4px 18px rgba(252,139,79,0.10);
 }
 
-:root[data-theme='light'] .back-to-top:hover, :root[data-theme='light'] .back-to-top:focus {
-    background: var(--primary);
-    color: #fff;
-    box-shadow: 0 8px 32px rgba(252,139,79,0.13);
+.header .nav-icon i { /* Pour FontAwesome si utilisé directement dans un .nav-icon */
+    font-size: 1.3rem;
 }
 
-/* Menu mobile */
+.header .theme-toggle svg,
+.header .lang-btn.globe svg { /* svg spécifique au header */
+    width: 20px; /* Taille de style.css, components.css avait 22px pour globe */
+    height: 20px;
+    transition: transform 0.3s ease; /* Ajouté depuis components.css pour globe svg */
+}
+/* Styles spécifiques pour le theme-toggle pour les <span> (si hamburger icon ou autre) */
+.header .theme-toggle span {
+    /* Styles pour les barres de l'icône hamburger si c'est ce que les spans représentent */
+}
+
+
+/* Styles pour le thème clair du header */
+:root[data-theme='light'] .header .nav-menu a {
+    color: var(--text-primary);
+}
+
+:root[data-theme='light'] .header .nav-menu a:hover,
+:root[data-theme='light'] .header .nav-menu a.active {
+    color: var(--primary) !important;
+}
+
+:root[data-theme='light'] .header .nav-menu a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary);
+    transition: width 0.3s ease;
+}
+
+:root[data-theme='light'] .header .nav-menu a:hover::after,
+:root[data-theme='light'] .header .nav-menu a.active::after {
+    width: 100%;
+}
+
+:root[data-theme='light'] .header .logo a:hover .logo-text {
+    color: var(--primary);
+}
+
+/* Styles pour les boutons de thème et de langue en mode clair */
+:root[data-theme='light'] .header .theme-toggle,
+:root[data-theme='light'] .header .lang-btn {
+    color: var(--text-secondary);
+    border: 1.5px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:root[data-theme='light'] .header .theme-toggle:hover,
+:root[data-theme='light'] .header .lang-btn:hover {
+    color: var(--primary);
+    border-color: var(--text-secondary);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+}
+
+/* Style spécifique pour l'icône du bouton de langue */
+:root[data-theme='light'] .header .lang-btn.globe {
+    color: var(--text-secondary);
+}
+
+:root[data-theme='light'] .header .lang-btn.globe:hover {
+    color: var(--primary);
+}
+
+/* Styles pour le menu mobile du Header */
 @media (max-width: 768px) {
-    .nav-menu {
+    .header .nav-menu { /* Un seul endroit pour cette règle maintenant */
         position: fixed;
         top: 0;
         right: -100%;
         width: 80%;
         max-width: 320px;
         height: 100vh;
-        background-color: var(--bg-darker);
-        z-index: 100;
+        background-color: var(--bg-darker); /* Assurez-vous que --bg-darker est bien défini */
+        z-index: 1000; /* Augmenté pour être au-dessus du header.scrolled potentiel */
         transition: var(--transition);
         display: flex;
         align-items: center;
@@ -226,15 +245,392 @@
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
     }
 
-    .nav-menu.active {
+    .header .nav-menu.active {
         right: 0;
     }
 
-    .nav-menu ul {
+    .header .nav-menu ul {
         flex-direction: column;
         gap: 1.5rem;
         width: 100%;
         padding: 0 2rem;
         text-align: center;
+        margin-right: 0; /* Annule la marge pour le menu mobile */
     }
+    .header .header-actions {
+        margin-left: 1rem; /* Réduire la marge pour mobile */
+    }
+    /* Cache le séparateur de nav sur mobile s'il est visible sur desktop */
+    /* .header .nav-separator { display: none; } */
+}
+
+/* Styles light theme spécifiques au Header */
+:root[data-theme='light'] .header {
+    background: var(--bg-light) !important; /* var(--bg-light) est #fff en light theme */
+    color: var(--text-primary) !important; /* var(--text-primary) est #18171b en light theme */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+:root[data-theme='light'] .header .navbar a, /* S'applique à .logo a et .nav-menu a */
+:root[data-theme='light'] .header .nav-icon,
+:root[data-theme='light'] .header .lang-btn.globe, /* Inclus ici pour la couleur du texte/icône */
+:root[data-theme='light'] .header .logo-text,
+:root[data-theme='light'] .header .theme-toggle { /* Assure que theme-toggle aussi change */
+    color: var(--text-primary) !important; /* text-primary du light theme */
+}
+/* Pas besoin de .nav-menu a::after car il est display:none */
+:root[data-theme='light'] .header.scrolled {
+    background: var(--bg-light) !important; /* var(--bg-light) est #fff en light theme */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+}
+
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.footer {
+    background-color: var(--bg-dark);
+    padding: 4rem 0 2rem;
+    border-top: 1px solid var(--bg-lighter);
+    margin-top: 4rem; /* Ajouté par components.css, conservé */
+}
+
+/* Tous les styles internes du footer de style.css sont nécessaires et spécifiques ici */
+.footer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+}
+
+.footer-logo img { /* Directement l'img, car footer.html a <div class="footer-logo"><img ...></div> */
+    height: 40px;
+    width: auto;
+    display: block;
+}
+
+.footer .social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.footer .social-links a {
+    width: 40px;
+    height: 40px;
+    background-color: var(--bg-light);
+    color: var(--text-primary); /* Couleur de l'icône */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.footer .social-links a:hover {
+    transform: translateY(-3px);
+    background-color: var(--primary); /* Changement de fond au survol */
+    color: #fff; /* Assurer contraste de l'icône */
+}
+
+.footer .social-links i {
+    font-size: 1.2rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.footer-column h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+/* Le ::after sur footer-column h3 était display:none dans style.css, donc on ne le met pas ici */
+
+.footer-column ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    list-style: none; padding:0; margin:0;
+}
+
+.footer-column a {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    display: inline-block;
+    text-decoration: none;
+    transition: color 0.35s cubic-bezier(0.4,0,0.2,1), transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    /* box-shadow retiré car il était seulement pour le thème sombre et léger en light */
+}
+
+.footer-column a:hover {
+    color: var(--primary);
+    transform: translateX(3px);
+}
+
+/* Pas besoin de :root[data-theme='light'] .footer-column a:hover { box-shadow: none; } car on l'a enlevé */
+
+.footer .server-status .status-indicator { /* Préciser le contexte pour server-status */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.footer .status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.footer .status-dot.online {
+    background-color: #4caf50;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+}
+
+.footer .status-dot.offline { /* Style conservé même si non utilisé dans HTML fourni */
+    background-color: #f44336;
+    box-shadow: 0 0 8px rgba(244, 67, 54, 0.5);
+}
+
+.footer .server-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer .info-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.footer .info-value { /* S'applique à .player-count et la version texte */
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--bg-light); /* Etait var(--bg-light) dans style.css */
+}
+
+.footer .copyright {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer .disclaimer {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+/* Responsive pour Footer */
+@media (max-width: 576px) {
+    .footer-top { /* Règle de style.css */
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+}
+
+
+/* ==========================================================================
+   Language Dropdown
+   ========================================================================== */
+/* Styles du menu de langue, principalement basés sur components.css qui était plus récent/détaillé */
+.lang-dropdown { /* Utilisé dans le header, mais peut être un composant autonome */
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.lang-btn.globe { /* Style spécifique pour le bouton de langue */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 1.1rem 0.35rem 0.7rem; /* De components.css */
+    background: none; /* De components.css */
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1.08rem; /* De components.css */
+    font-weight: 600; /* Ajouté pour correspondre à .btn */
+    border-radius: 12px; /* De components.css (style.css avait 8px) */
+    border: 1.5px solid transparent;
+    transition: var(--transition); /* Utilise la variable globale */
+    position: relative; /* De components.css */
+    z-index: 11; /* De components.css */
+    overflow: hidden; /* Pour l'effet ::after s'il est réactivé */
+}
+/* L'effet ::after des boutons globaux de style.css s'appliquera aussi ici */
+/* Si un effet de survol différent est voulu, il faut le spécifier */
+.lang-btn.globe:hover,
+.lang-btn.globe.active { /* Style de survol de components.css */
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: none !important; /* De components.css */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.18); /* Ajouté depuis le style de bouton de style.css */
+}
+/* Retrait de l'effet .btn::after sur le globe si non désiré */
+.lang-btn.globe::after {
+    /* content: none; ou un autre style si l'effet n'est pas voulu */
+}
+
+
+.lang-btn.globe .lang-current { /* Classe pour le texte de la langue actuelle */
+    font-weight: 500;
+    min-width: 60px; /* De components.css */
+    text-align: left;
+}
+
+.lang-btn.globe .fa-chevron-down { /* Style pour l'icône chevron */
+    font-size: 0.85em;
+    margin-left: 0.2em;
+    transition: transform 0.3s ease; /* Assurer la transition pour la rotation */
+}
+.lang-dropdown.open .lang-btn.globe .fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+.lang-menu {
+    position: absolute;
+    top: 110%; /* De components.css */
+    right: 0;
+    background: var(--bg-darker); /* De components.css */
+    border-radius: 16px; /* De components.css (style.css avait 12px) */
+    padding: 0.7rem 0; /* De components.css */
+    min-width: 180px; /* De components.css (style.css avait 160px) */
+    box-shadow: 0 8px 32px rgba(0,0,0,0.22); /* De components.css */
+    display: none; /* Caché par défaut */
+    z-index: 1001; /* De components.css, au-dessus de beaucoup d'éléments */
+    flex-direction: column;
+    align-items: stretch;
+    animation: fadeInLang 0.24s cubic-bezier(0.4,0,0.2,1); /* De components.css */
+    border: 1.5px solid rgba(252,139,79,0.10); /* De components.css */
+    backdrop-filter: blur(6px); /* De components.css */
+    overflow: hidden; /* De components.css */
+}
+
+@keyframes fadeInLang { /* Assurez-vous que cette animation est définie si elle n'existe pas déjà */
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.lang-dropdown.open .lang-menu, /* Géré par JS pour ajouter/enlever .open */
+.lang-menu.show { /* Au cas où une classe .show est utilisée par JS */
+    display: flex;
+}
+
+.lang-option {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.8rem 1.1rem; /* De components.css (style.css avait 0.65rem 1.2rem) */
+    background: transparent;
+    border: none;
+    color: var(--text-primary); /* De components.css */
+    text-align: left;
+    cursor: pointer;
+    border-radius: 0; /* De components.css (style.css avait 6px) */
+    font-size: 1.08rem; /* De components.css */
+    font-weight: 500; /* De components.css */
+    letter-spacing: 0.01em; /* De components.css */
+    transition: background 0.18s, color 0.18s, transform 0.22s cubic-bezier(0.4,0,0.2,1); /* De components.css */
+    margin: 0.05rem 0; /* De components.css */
+}
+
+.lang-option:hover,
+.lang-option.active {
+    background: var(--bg-light); /* De components.css */
+    color: var(--primary); /* De components.css */
+    transform: translateX(4px) scale(1.04); /* De components.css */
+    box-shadow: 0 2px 8px rgba(252,139,79,0.10); /* De components.css */
+}
+
+/* Styles light theme pour Language Dropdown */
+:root[data-theme='light'] .lang-menu {
+    background: var(--bg-light); /* De components.css */
+    border: 1.5px solid rgba(252,139,79,0.14); /* De components.css */
+    box-shadow: 0 8px 32px rgba(252,139,79,0.09); /* De components.css */
+}
+:root[data-theme='light'] .lang-option { /* Assure la couleur du texte en light theme */
+    color: var(--text-primary); /* text-primary du light theme */
+}
+:root[data-theme='light'] .lang-option:hover,
+:root[data-theme='light'] .lang-option.active {
+    background: var(--bg-darker); /* De components.css */
+    color: var(--primary); /* De components.css */
+    box-shadow: 0 2px 8px rgba(252,139,79,0.08); /* De components.css */
+}
+
+
+/* ==========================================================================
+   Back to Top Button
+   ========================================================================== */
+/* Styles du bouton Back to Top, basés sur components.css (la version "modernisée") */
+.back-to-top {
+    position: fixed;
+    bottom: 2.5rem; /* De components.css */
+    right: 2.5rem; /* De components.css */
+    width: 48px; /* De components.css */
+    height: 48px; /* De components.css */
+    background: var(--bg-light); /* De components.css */
+    color: var(--primary); /* De components.css */
+    border: none; /* De components.css */
+    border-radius: 50%; /* De components.css */
+    box-shadow: 0 4px 18px rgba(0,0,0,0.14); /* De components.css */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem; /* De components.css */
+    cursor: pointer;
+    opacity: 0; /* De components.css, géré par JS pour afficher */
+    pointer-events: none; /* De components.css */
+    transition: opacity 0.2s, background 0.18s, color 0.18s, box-shadow 0.22s, transform 0.22s cubic-bezier(0.4,0,0.2,1); /* De components.css */
+    z-index: 999; /* De components.css */
+    outline: none; /* De components.css */
+    border: 1.5px solid transparent; /* De components.css */
+}
+.back-to-top i { /* S'assurer que l'icône FontAwesome hérite de la couleur et est centrée */
+    line-height: 1; /* Peut aider au centrage vertical de l'icône FA */
+}
+
+
+.back-to-top.show, /* Classe 'show' de style.css */
+.back-to-top.visible { /* Classe 'visible' de components.css, JS doit utiliser l'une ou l'autre */
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.back-to-top:hover,
+.back-to-top:focus { /* :focus ajouté pour accessibilité */
+    background: var(--primary); /* De components.css */
+    color: #fff; /* De components.css */
+    box-shadow: 0 8px 32px rgba(252,139,79,0.18); /* De components.css */
+    transform: translateY(-6px) scale(1.10); /* De components.css */
+    border-color: var(--primary); /* De components.css */
+}
+
+/* Styles light theme pour Back to Top Button */
+:root[data-theme='light'] .back-to-top {
+    background: var(--bg-dark); /* De components.css (était --bg-dark, qui est #f7f7fa en light) */
+    color: var(--primary); /* De components.css */
+    box-shadow: 0 4px 18px rgba(252,139,79,0.10); /* De components.css */
+}
+:root[data-theme='light'] .back-to-top:hover,
+:root[data-theme='light'] .back-to-top:focus {
+    background: var(--primary); /* De components.css */
+    color: #fff; /* De components.css */
+    box-shadow: 0 8px 32px rgba(252,139,79,0.13); /* De components.css */
 }

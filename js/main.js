@@ -263,6 +263,7 @@ function initMainComponents() {
     initFAQ();
 }
 
+
 function initFAQ() {
     const faqItems = document.querySelectorAll('.faq-item');
     if (faqItems.length > 0) {
