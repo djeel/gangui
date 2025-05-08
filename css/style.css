@@ -530,10 +530,6 @@ button {
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.carousel-arrow {
-    display: none !important;
-}
-
 .carousel-dots {
     display: flex;
     justify-content: center;
@@ -568,6 +564,17 @@ button {
 :root[data-theme='light'] .feature-card::before { /* Ajuster le gradient pour light theme */
     background: linear-gradient(135deg, rgba(var(--primary-rgb, 252,139,79),0.08), rgba(0,0,0,0.03));
     /* Note: --primary-rgb devrait être défini si vous voulez utiliser rgba avec une variable de couleur hex */
+}
+
+@media (max-width: 768px) {
+    .features-grid {
+        gap: 1.5rem; /* Réduit l'espace entre les cartes */
+        align-items: center; /* Centre les cartes si elles ne remplissent pas la ligne */
+    }
+    .feature-card {
+        min-width: calc(100% - 2rem); /* Prend presque toute la largeur sur mobile */
+        flex-basis: auto; /* Annule le flex-basis pour qu'il prenne la largeur */
+    }
 }
 
 
@@ -650,7 +657,7 @@ button {
 }
 
 .faq-item.active .faq-toggle i {
-    transform: rotate(90deg);
+    transform: rotate(0deg);
 }
 
 .faq-answer {
