@@ -577,7 +577,7 @@ button {
     display: flex; /* Changé pour flex pour mieux gérer .hero-flex */
     align-items: center;
     justify-content: center;
-    text-align: center; /* Par défaut, mais .hero-left le modifiera */
+    text-align: left; /* Par défaut, mais .hero-left le modifiera */
     color: var(--text-primary); /* Etait #fff, maintenant var */
     overflow: hidden;
 }
