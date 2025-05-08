@@ -4,7 +4,7 @@
  */
 
 // -----------------------------------------------------
-// ÉLÉMENTS DOM
+// 1. SÉLECTEURS DOM
 // -----------------------------------------------------
 const loader = document.querySelector('.loader');
 const navbar = document.querySelector('.navbar');
@@ -17,13 +17,30 @@ const animElements = document.querySelectorAll('.fade-in, .slide-up, .slide-righ
 const header = document.querySelector('.header');
 
 // -----------------------------------------------------
-// VARIABLES GLOBALES
+// 2. VARIABLES GLOBALES
 // -----------------------------------------------------
 // Langue actuelle
 let currentLang = 'en';
 
 // -----------------------------------------------------
-// FONCTIONS DE GESTION DE LANGUE
+// 3. FONCTIONS UTILITAIRES
+// -----------------------------------------------------
+/**
+ * Copie le texte dans le presse-papier
+ * @param {string} text - Texte à copier
+ */
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        const tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
+        tooltip.textContent = 'Copied!';
+        document.body.appendChild(tooltip);
+        setTimeout(() => tooltip.remove(), 2000);
+    });
+}
+
+// -----------------------------------------------------
+// 4. FONCTIONS DE GESTION DE LANGUE
 // -----------------------------------------------------
 /**
  * Met à jour la langue de l'interface
@@ -88,7 +105,7 @@ function initLanguageSystem() {
 }
 
 // -----------------------------------------------------
-// FONCTIONS DE LA FAQ
+// 5. FONCTIONS DE LA FAQ
 // -----------------------------------------------------
 /**
  * Bascule l'état ouvert/fermé d'un élément FAQ
@@ -143,7 +160,7 @@ function initFAQ() {
 }
 
 // -----------------------------------------------------
-// FONCTIONS DU CARROUSEL
+// 6. FONCTIONS DU CARROUSEL
 // -----------------------------------------------------
 /**
  * Initialise le carrousel des fonctionnalités
@@ -278,7 +295,7 @@ function initFeaturesCarousel() {
 }
 
 // -----------------------------------------------------
-// FONCTIONS D'ANIMATION
+// 7. FONCTIONS D'ANIMATION
 // -----------------------------------------------------
 /**
  * Animation cyclique du titre hero
@@ -348,22 +365,8 @@ function initMouseSpotlight() {
 }
 
 // -----------------------------------------------------
-// FONCTIONS UTILITAIRES
+// 8. FONCTIONS D'INITIALISATION
 // -----------------------------------------------------
-/**
- * Copie le texte dans le presse-papier
- * @param {string} text - Texte à copier
- */
-function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-        const tooltip = document.createElement('div');
-        tooltip.className = 'tooltip';
-        tooltip.textContent = 'Copied!';
-        document.body.appendChild(tooltip);
-        setTimeout(() => tooltip.remove(), 2000);
-    });
-}
-
 /**
  * Initialise les composants principaux du site
  */
@@ -411,7 +414,7 @@ function initThemeHandler() {
 }
 
 // -----------------------------------------------------
-// INITIALISATION AU CHARGEMENT DE LA PAGE
+// 9. ÉVÉNEMENT DE CHARGEMENT PRINCIPAL
 // -----------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
     // Animation du titre hero
