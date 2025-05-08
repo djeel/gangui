@@ -820,22 +820,61 @@ button {
 /* ==========================================================================
    Mouse Spotlight Effect
    ========================================================================== */
+/**
+ * Mouse Spotlight Effect - Version simplifiée
+ */
+
+/* Effet de spotlight qui suit la souris */
 .mouse-spotlight {
     position: fixed;
     pointer-events: none; /* Ne pas interférer avec les clics */
-    z-index: 10; /* Valeur originale, peut être ajustée (ex: 9999 pour être au-dessus de tout) */
-    width: 500px; height: 500px;
+    z-index: 10;
+    width: 500px; 
+    height: 500px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(252,139,79,0.12) 0%, rgba(252,139,79,0.06) 50%, transparent 70%); /* Ajusté pour être plus doux */
-    filter: blur(50px); /* Un peu moins de flou */
-    opacity: 0; /* Caché par défaut, activé par JS avec .spotlight-active sur body */
-    left: 50%; top: 50%; /* Centré par défaut, positionné par JS */
+    
+    /* Gradient amélioré mais simplifié */
+    background: radial-gradient(circle, 
+        rgba(252, 139, 79, 0.247) 0%, 
+        rgba(252, 139, 79, 0) 60%, 
+        transparent 80%);
+    
+    /* Flou optimisé */
+    filter: blur(45px);
+    
+    /* Position initiale (sera modifiée par JS) */
+    left: 50%;
+    top: 50%;
     transform: translate(-50%, -50%);
-    transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1); /* Transition plus longue */
+    
+    /* Caché par défaut */
+    opacity: 0;
+    
+    /* Transition fluide */
+    transition: opacity 0.5s ease;
+    
+    /* Optimisation des performances */
     will-change: transform, opacity;
 }
-body.spotlight-active .mouse-spotlight { /* Activé par JS */
-    opacity: 0.35; /* Opacité quand actif (était 0.45) */
+
+/* État actif */
+body.spotlight-active .mouse-spotlight {
+    opacity: 0.4;
+}
+
+/* Version simplifiée pour mobile */
+@media (max-width: 768px) {
+    .mouse-spotlight {
+        width: 300px;
+        height: 300px;
+    }
+}
+
+/* Désactiver sur appareils tactiles */
+@media (hover: none) {
+    .mouse-spotlight {
+        display: none;
+    }
 }
 
 

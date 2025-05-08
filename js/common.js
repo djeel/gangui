@@ -1,5 +1,6 @@
 /**
  * common.js - Fonctions communes pour le site
+ * Stockage des données, thème et langue
  */
 
 // ----------------------------------------------------- //

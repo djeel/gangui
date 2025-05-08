@@ -1,5 +1,5 @@
 /**
- * Fichier main.js réorganisé
+ * Fichier main.js
  * Ce fichier contient les fonctionnalités JavaScript pour un site web multilingue
  */
 
