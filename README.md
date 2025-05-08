@@ -1,4 +1,4 @@
-# GANGUI - Minecraft Server
+# GANGUI - Website
 
 <div align="center">
   <img src="img/logo.png" alt="GANGUI Logo" width="200"/>
@@ -14,14 +14,6 @@ GANGUI is an innovative Minecraft server offering a unique gaming experience wit
 - **Anonymity**: Connect anonymously via hidden.gangui.eu to hide your IP and play without leaving a trace
 - **AI Assistant**: GAIA, your smart AI companion, guides you and answers your questions in real-time
 - **Compatibility**: Play on all Minecraft versions from 1.8 to 1.21, including Bedrock
-
-## Quick Start
-
-1. Launch Minecraft (Java Edition 1.8 to 1.21 or Bedrock)
-2. Go to "Multiplayer"
-3. Click "Add Server"
-4. Enter the address: `mc.gangui.eu`
-5. Click "Done" and join the server!
 
 ## Technical Stack
 
@@ -42,39 +34,6 @@ GANGUI is an innovative Minecraft server offering a unique gaming experience wit
 └── index.html     # Main entry point
 ```
 
-## Development
-
-### Prerequisites
-
-- Node.js v18+
-- npm v9+
-- Modern browser (Chrome, Firefox, Safari)
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone [REPO_URL]
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Start development server:
-```bash
-npm run dev
-```
-
-## Server Information
-
-- **Main IP**: mc.gangui.eu
-- **Anonymous IP**: hidden.gangui.eu
-- **Discord**: [Join our Discord](https://discord.gg/7Kj8vsGdSr)
-- **Store**: store.gangui.eu
-- **Support**: support@gangui.eu
-
 ## Security Features
 
 - User input validation
@@ -82,13 +41,6 @@ npm run dev
 - Secure token management
 - Regular security audits
 - Anonymous connection option
-
-## Support
-
-For technical questions or assistance:
-- Discord: [Join our Discord](https://discord.gg/7Kj8vsGdSr)
-- Email: support@gangui.eu
-- In-game: Use the support ticket system
 
 ---
 
