@@ -226,13 +226,13 @@
     color: var(--text-primary) !important;
 }
 
-/* Style de survole pour thème clair */
+/* Style de survol pour thème clair */
 :root[data-theme='light'] .header .nav-menu a:hover,
 :root[data-theme='light'] .header .nav-menu a.active {
     color: var(--primary) !important;
 }
 
-/* Effet au survole pour thème clair */
+/* Effet au survol pour thème clair */
 :root[data-theme='light'] .header .nav-menu a::after {
     content: '';
     position: absolute;
@@ -325,32 +325,6 @@
     .header .header-actions {
         margin-left: auto;
         gap: 0.8rem; /* Réduire l'espace entre les actions sur mobile */
-    }
-    
-    /* Ajustement du logo pour mobile */
-    .header .logo-text {
-        font-size: 1.1rem; /* Légèrement plus petit sur mobile */
-    }
-}
-
-@media (max-width: 480px) {
-    /* Ajustements pour très petits écrans */
-    .header .container {
-        padding: 0 0.75rem;
-    }
-    
-    .header .logo img {
-        height: 35px; /* Logo légèrement plus petit */
-    }
-    
-    .header .logo-text {
-        font-size: 1rem;
-    }
-    
-    .header .nav-icon,
-    .header .theme-toggle {
-        width: 36px;
-        height: 36px;
     }
 }
 
