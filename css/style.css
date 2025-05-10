@@ -375,19 +375,19 @@ button {
 @media (max-width: 900px) {
     .hero .hero-title { font-size: 2rem; } /* Etait 1.7rem, ajusté */
     .hero .hero-brand { font-size: 4rem; } /* Etait 1.7rem, ajusté */
-    .hero .hero-desc { font-size: 2.2rem; }
+    .hero .hero-desc { font-size: 1.4rem; }
 }
 
 @media (max-width: 768px) { /* De style.css général */
     .hero .hero-title { font-size: 2rem; } /* Etait 1.7rem, ajusté */
     .hero .hero-brand { font-size: 4rem; } /* Etait 1.7rem, ajusté */
-    .hero .hero-desc { font-size: 2.2rem; }
+    .hero .hero-desc { font-size: 1.3rem; }
 }
 
 @media (max-width: 600px) {
     .hero .hero-title { font-size: 2rem; } /* Etait 1.7rem, ajusté */
     .hero .hero-brand { font-size: 4rem; } /* Etait 1.7rem, ajusté */
-    .hero .hero-desc { font-size: 1.1rem; }
+    .hero .hero-desc { font-size: 1.2rem; }
 }
 
 @media (max-width: 576px) { /* De style.css général */
