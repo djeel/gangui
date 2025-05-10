@@ -1,7 +1,7 @@
 # GANGUI - Website
 
 <div align="center">
-  <img src="img/logo.png" alt="GANGUI Logo" width="200"/>
+  <img src="img/logo_light.png" alt="GANGUI Logo" width="200"/>
 </div>
 
 ## About
