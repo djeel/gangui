@@ -168,130 +168,149 @@ function initFAQ() {
 function initFeaturesCarousel() {
     const carousel = document.querySelector('.features-grid.carousel');
     if (!carousel) {
-        console.log('Carousel not found, skipping initialization');
+        // console.log('Carousel not found, skipping initialization');
         return;
     }
 
-    const cards = carousel.querySelectorAll('.feature-card');
-    if (!cards || cards.length === 0) {
-        console.log('No feature cards found, skipping initialization');
+    const cardElements = carousel.querySelectorAll('.feature-card');
+    if (!cardElements || cardElements.length === 0) {
+        // console.log('No feature cards found, skipping initialization');
         return;
     }
+    const cards = Array.from(cardElements); // Travailler avec un vrai Array
 
     const dotsContainer = document.querySelector('.carousel-dots');
-    
     let currentIndex = 0;
+    let resizeTimeout;
+    let scrollSyncTimeout;
 
-    function updateActiveState() {
-        cards.forEach((card, index) => {
-            if (index === currentIndex) {
-                card.classList.add('active');
-            } else {
-                card.classList.remove('active');
-            }
-        });
-    }
+    // Rendre le carrousel focusable pour les événements clavier
+    carousel.tabIndex = 0;
 
-    function scrollToCard(index) {
+    function showSlide(index, smooth = true) {
         // Gestion de la boucle infinie
         if (index < 0) {
             index = cards.length - 1;
         } else if (index >= cards.length) {
             index = 0;
         }
-        
         currentIndex = index;
-        const card = cards[index];
+
+        const card = cards[currentIndex];
+        if (!card) return;
+
         const scrollPosition = card.offsetLeft - carousel.offsetLeft;
-        
+
         carousel.scrollTo({
             left: scrollPosition,
-            behavior: 'smooth'
+            behavior: smooth ? 'smooth' : 'auto'
         });
-        
-        updateActiveState();
-        updateDots();
-    }
 
-    function updateDots() {
-        if (!dotsContainer) return;
-        
-        if (dotsContainer.children.length !== cards.length) {
-            dotsContainer.innerHTML = '';
-            cards.forEach((_, i) => {
-                const dot = document.createElement('span');
-                dot.className = 'carousel-dot' + (i === currentIndex ? ' active' : '');
-                dot.addEventListener('click', () => scrollToCard(i));
-                dotsContainer.appendChild(dot);
-            });
-        } else {
+        cards.forEach((c, i) => {
+            c.classList.toggle('active', i === currentIndex);
+        });
+
+        if (dotsContainer) {
+            if (dotsContainer.children.length !== cards.length) {
+                dotsContainer.innerHTML = '';
+                cards.forEach((_, i) => {
+                    const dot = document.createElement('span');
+                    dot.className = 'carousel-dot';
+                    dot.addEventListener('click', () => showSlide(i));
+                    dotsContainer.appendChild(dot);
+                });
+            }
             Array.from(dotsContainer.children).forEach((dot, i) => {
-                dot.className = 'carousel-dot' + (i === currentIndex ? ' active' : '');
+                dot.classList.toggle('active', i === currentIndex);
             });
         }
     }
 
-    // Gestion du touch
+    // Gestion du swipe (touch)
     let touchStartX = 0;
-    let touchEndX = 0;
-    
     carousel.addEventListener('touchstart', (e) => {
         touchStartX = e.changedTouches[0].screenX;
-    });
-    
+    }, { passive: true });
+
     carousel.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    });
-    
-    function handleSwipe() {
-        const swipeThreshold = 50;
+        const touchEndX = e.changedTouches[0].screenX;
         const diff = touchStartX - touchEndX;
-        
+        const swipeThreshold = 50;
+
         if (Math.abs(diff) > swipeThreshold) {
             if (diff > 0) {
-                scrollToCard(currentIndex + 1);
+                showSlide(currentIndex + 1);
             } else {
-                scrollToCard(currentIndex - 1);
+                showSlide(currentIndex - 1);
             }
         }
-    }
-
-    // Gestion du scroll
-    let scrollTimeout;
-    carousel.addEventListener('scroll', () => {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            const cardWidth = cards[0].offsetWidth;
-            const scrollPosition = carousel.scrollLeft;
-            const newIndex = Math.round(scrollPosition / cardWidth);
-            
-            if (newIndex !== currentIndex && newIndex >= 0 && newIndex < cards.length) {
-                currentIndex = newIndex;
-                updateActiveState();
-                updateDots();
-            }
-        }, 100);
     });
 
     // Gestion du clic sur les cartes
     cards.forEach((card, index) => {
         card.addEventListener('click', (e) => {
-            // Empêcher le clic si on est déjà sur cette carte
             if (index === currentIndex) return;
-            
-            // Empêcher le comportement par défaut
             e.preventDefault();
             e.stopPropagation();
-            
-            // Faire défiler vers la carte cliquée
-            scrollToCard(index);
+            showSlide(index);
         });
     });
 
-    // Initialisation
-    updateActiveState();
-    updateDots();
+    // Gestion de la synchronisation lors du défilement manuel du carrousel
+    carousel.addEventListener('scroll', () => {
+        clearTimeout(scrollSyncTimeout);
+        scrollSyncTimeout = setTimeout(() => {
+            if (cards.length === 0) return;
+            const currentScrollLeft = carousel.scrollLeft;
+            let newBestIndex = 0;
+            let minDiff = Infinity;
+
+            cards.forEach((card, i) => {
+                const cardTargetScroll = card.offsetLeft - carousel.offsetLeft;
+                const diff = Math.abs(currentScrollLeft - cardTargetScroll);
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    newBestIndex = i;
+                }
+            });
+            
+            if (newBestIndex !== currentIndex) {
+                currentIndex = newBestIndex;
+                cards.forEach((c, i) => c.classList.toggle('active', i === currentIndex));
+                if (dotsContainer) {
+                    Array.from(dotsContainer.children).forEach((dot, i) => {
+                        dot.classList.toggle('active', i === currentIndex);
+                    });
+                }
+            }
+        }, 100);
+    });
+
+    // Gestion des touches clavier (flèches gauche/droite)
+    carousel.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault(); // Empêche le défilement par défaut de la page
+            showSlide(currentIndex - 1);
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault(); // Empêche le défilement par défaut de la page
+            showSlide(currentIndex + 1);
+        }
+    });
+    
+    // Gestion du redimensionnement de la fenêtre
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            if (cards.length > 0 && cards[currentIndex]) {
+                showSlide(currentIndex, false);
+            }
+        }, 200);
+    });
+
+    // Initialisation du carrousel
+    if (cards.length > 0) {
+        showSlide(currentIndex, false);
+    }
 }
 
 // -----------------------------------------------------
