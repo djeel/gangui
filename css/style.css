@@ -117,7 +117,7 @@ button {
 
 .btn:hover {
     border-color: var(--primary);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+    /*  box-shadow: 0 4px 20px rgba(0,0,0,0.18); */
     color: var(--primary);
     /* background: var(--bg-light); conservé */
 }
@@ -741,7 +741,7 @@ button {
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     transform-style: preserve-3d;
     will-change: transform;
     border: 1.5px solid transparent;
@@ -762,7 +762,7 @@ button {
 
 .join-step:hover {
     border-color: var(--primary);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+/*  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3); */
     transform: translateY(-5px);
 }
 

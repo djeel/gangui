@@ -1,0 +1,337 @@
+/* ==========================================================================
+   Player Stats Page - GANGUI
+   ========================================================================== */
+
+/* Player Stats Section */
+.player-stats {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 0;
+    color: var(--text-primary);
+    overflow: hidden;
+    background-color: var(--bg-dark);
+}
+
+.stats-container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Player Profile */
+.player-profile {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    padding: 3rem;
+    border-radius: 24px;
+    background: var(--bg-light); 
+/*     box-shadow: var(--box-shadow); */
+    transition: var(--transition);
+    border: 1.5px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.player-profile::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(252, 139, 79, 0.08), rgba(200, 200, 200, 0.08));
+    z-index: 1;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.player-profile:hover {
+    border-color: var(--primary);
+/*     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3); */ 
+    transform: translateY(-5px);
+}
+
+/* Player Avatar */
+.player-avatar {
+    position: relative;
+    z-index: 2;
+    width: 300px;
+    height: 500px;
+    flex-shrink: 0;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.player-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.player-profile:hover .player-avatar {
+}
+
+.player-profile:hover .player-avatar img {
+}
+
+/* Player Info */
+.player-info {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transform: translateZ(20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.player-profile:hover .player-info {
+    transform: translateZ(30px);
+}
+
+/* Player Role and Username */
+.player-role-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.player-role {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 1rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: 20px;
+    color: var(--text-primary);
+    background: var(--bg-darker);
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.player-role.ai {
+    background: linear-gradient(135deg, #00a67e, #00a67e);
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.player-role.admin {
+    background: linear-gradient(135deg, #ff5555, #ff5555);
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.player-role.mod {
+    background: linear-gradient(135deg, #5454fd, #5454fd);
+    color: #ffffff;
+}
+
+.player-role.dev {
+    background: linear-gradient(135deg, #2e2e2e, #2e2e2e);
+    color: #ffffff;
+}
+
+.player-role.build {
+    background: linear-gradient(135deg, #00aaaa, #00aaaa);
+    color: #ffffff;
+}
+
+.player-role.media {
+    background: linear-gradient(135deg, #aa00aa, #aa00aa);
+    color: #ffffff;
+}
+
+.player-role.aether {
+    background: linear-gradient(135deg, #7251bc, #7251bc);
+    color: #ffffff;
+}
+
+.player-role.lumos {
+    background: linear-gradient(135deg, #fc8b4f, #fc8b4f);
+    color: #ffffff;
+}
+
+.player-role.nox {
+    background: linear-gradient(135deg, #526b9e, #526b9e);
+    color: #ffffff;
+}
+
+.player-role.member {
+    background: linear-gradient(135deg, #85a2d5, #85a2d5);
+    color: #ffffff;
+}
+
+.player-username {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    color: var(--text-primary);
+}
+
+.player-status {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-left: 1rem;
+}
+
+.player-status.online {
+    background-color: #4CAF50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.6);
+}
+
+.player-status.offline {
+    background-color: #F44336;
+    box-shadow: 0 0 10px rgba(244, 67, 54, 0.6);
+}
+
+/* Player UUID */
+.player-uuid {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-lighter);
+    border-radius: 8px;
+    font-size: 1.2rem;
+    max-width: fit-content;
+}
+
+.player-uuid span:first-child {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+#player-uuid-value {
+    color: var(--text-secondary);
+    font-family: monospace;
+    letter-spacing: 0.05em;
+}
+
+/* Player Basic Stats */
+.player-stats-basic {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.stats-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.stats-date, .stats-time {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.stats-label {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+}
+
+/* Styles pour le Thème Clair */
+:root[data-theme='light'] .player-profile {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);  
+}
+
+:root[data-theme='light'] .player-profile::before {
+    background: linear-gradient(135deg, rgba(252, 139, 79, 0.08), rgba(0, 0, 0, 0.03));
+}
+
+:root[data-theme='light'] .player-avatar {
+/*    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); */
+}
+
+:root[data-theme='light'] .player-role {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+:root[data-theme='light'] .player-uuid {
+    background: var(--bg-lighter);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .player-profile {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 2rem;
+    }
+    
+    .player-avatar {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .player-role-container {
+        justify-content: center;
+    }
+    
+    .player-uuid {
+        margin: 0 auto;
+    }
+    
+    .player-stats-basic {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-container {
+        padding: 1rem;
+    }
+    
+    .player-profile {
+        padding: 2rem;
+    }
+    
+    .player-username {
+        font-size: 2.2rem;
+    }
+    
+    .stats-date, .stats-time {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .player-avatar {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .player-username {
+        font-size: 1.8rem;
+    }
+    
+    .player-stats-basic {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    
+    .stats-item {
+        align-items: center;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
